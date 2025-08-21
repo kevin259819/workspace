@@ -188,3 +188,141 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+/* Tipografía y colores SOLO dentro del catálogo.
+   Lo marcamos !important para ganarle a Verdana !important del proyecto. */
+.catalogo {
+  font-family: Arial, sans-serif !important;
+  /* Si querés el fondo degradado solo en esta sección, lo aplicamos aquí: */
+  background: linear-gradient(135deg, #000428, #004e92);
+  color: white;
+  /* Separación interna y layout principal (en vez de .container) */
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px;
+  border-radius: 12px; /* opcional: suaviza bordes sobre fondo general */
+}
+
+/* --- Panel izquierdo (Filtros) --- */
+.catalogo .filtros {
+  flex: 1;
+  max-width: 220px;
+}
+.catalogo .filtros h2 {
+  color: #5faaff;
+}
+.catalogo .filtros label {
+  display: block;
+  margin: 8px 0;
+  cursor: pointer;
+}
+.catalogo .filtros input[type="number"] {
+  width: 100%;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 8px;
+  border: none;
+}
+
+/* --- Panel central (autos) --- */
+.catalogo .autos {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Tarjetas generadas por products.js */
+.catalogo .card {
+  background: rgba(0, 0, 30, 0.6);
+  border: 2px solid white;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.catalogo .card img {
+  width: 140px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.catalogo .card h3 {
+  margin: 0;
+}
+.catalogo .precio {
+  color: #5faaff;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* --- Panel derecho (Ordenar) --- */
+.catalogo .ordenar {
+  flex: 1;
+  max-width: 180px;
+}
+.catalogo .ordenar h2 {
+  color: #5faaff;
+}
+.catalogo .ordenar label {
+  display: block;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.paginacion{
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.paginacion button{
+  /* colores bien visibles */
+  background: transparent;            /* o rgba(95,170,255,.15) */
+  color: #5faaff;                      /* texto azul, NO blanco */
+  border: 1px solid #5faaff;
+
+  /* tamaño y alineado */
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* tipografía */
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* botón activo (página actual) */
+.paginacion button[aria-current="page"],
+.paginacion button.active{
+  background: #5faaff;
+  color: #001b3d;                      /* contraste sobre el fondo azul */
+}
+
+/* hover */
+.paginacion button:hover{
+  background: rgba(95,170,255,.2);
+}
+
+/* --- Para que el tamaño se ajuste --- */
+@media (max-width: 768px) {
+  .catalogo {
+    flex-direction: column;
+    align-items: stretch;  /* para ocupar ancho completo */
+  }
+  .catalogo .filtros, 
+  .catalogo .ordenar {
+    max-width: 100%;
+    text-align: left; /* o center si preferís */
+  }
+  .catalogo .autos {
+    width: 100%;
+  }
+}
