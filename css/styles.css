@@ -188,3 +188,139 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+/* Tipografía y colores SOLO dentro del catálogo.
+   Lo marcamos !important para ganarle a Verdana !important del proyecto. */
+.catalogo {
+  font-family: Arial, sans-serif !important; 
+  background: linear-gradient(135deg, #000428, #004e92); /* Fondo degradado azul oscuro */
+  color: white; 
+  display: flex; /* Activa Flexbox, coloca los hijos en fila por defecto */
+  justify-content: space-between; /* Distribuye los elementos con espacio entre ellos */
+  padding: 20px; /* Espacio interno (separación entre el borde del container y el contenido) */
+  gap: 20px; /* Espacio entre los elementos */
+  border-radius: 12px; /* Suaviza bordes sobre fondo general */
+}
+
+/* --- Panel izquierdo (Filtros) --- */
+.catalogo .filtros {
+  flex: 1; /* Ocupa 1 parte del espacio disponible */
+  max-width: 220px;
+}
+.catalogo .filtros h2 {
+  color: #5faaff;
+}
+.catalogo .filtros label {
+  display: block;
+  margin: 8px 0;
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+.catalogo .filtros input[type="number"] { /* Estilo para inputs numéricos */
+  width: 100%;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 8px;
+  border: none;
+}
+
+/* --- Panel central (autos) --- */
+.catalogo .autos {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Tarjetas generadas por products.js */
+.catalogo .card {
+  background: rgba(0, 0, 30, 0.6);
+  border: 2px solid white;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  align-items: center; /* Alinea los verticalmente */
+  gap: 15px; /* Espacio entre imagen y texto */
+}
+.catalogo .card img {
+  width: 140px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover; /* Asegura que la imagen se ajuste sin distorsionarse */
+}
+.catalogo .card h3 {
+  margin: 0;
+}
+.catalogo .precio {
+  color: #5faaff;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* --- Panel derecho (Ordenar) --- */
+.catalogo .ordenar {
+  flex: 1;
+  max-width: 180px;
+}
+.catalogo .ordenar h2 {
+  color: #5faaff;
+}
+.catalogo .ordenar label {
+  display: block; /* Cada etiqueta ocupa una línea completa */
+  margin: 8px 0;
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+.paginacion{ /* Paginación de productos */
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.paginacion button{
+  background: transparent; /* fondo transparente */
+  color: #5faaff;
+  border: 1px solid #5faaff; /* borde azul */
+
+  /* tamaño y alineado */
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: inline-flex; /* para centrar contenido */
+  align-items: center; /* alinea verticalmente */
+  justify-content: center; /* alinea horizontalmente */
+
+  /* tipografía */
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;  /* cursor pointer para indicar que es clickeable */
+}
+
+/* botón activo (página actual) */
+.paginacion button[aria-current="page"],
+.paginacion button.active{
+  background: #5faaff;
+  color: #001b3d;  
+/* sirve para marcar visualmente el botón de la paginación que representa la página activa */
+}
+
+/* hover */
+.paginacion button:hover{
+  background: rgba(95,170,255,.2);
+}
+
+/* --- Para que el tamaño se ajuste --- */
+@media (max-width: 768px) {
+  .catalogo {
+    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+    align-items: stretch;  /* para ocupar ancho completo */
+  }
+  .catalogo .filtros, /* Panel de filtros */
+  .catalogo .ordenar /* Panel de ordenar */ {
+    max-width: 100%; 
+    text-align: left;
+  }
+  .catalogo .autos /* Listado de autos */ {
+    width: 100%;
+  }
+}
