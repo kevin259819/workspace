@@ -1,56 +1,96 @@
 <!DOCTYPE html>
 <html lang="es">
-
+  
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <title>eMercado - Todo lo que busques está aquí</title>
 
+  <!-- Tipografías y Bootstrap del proyecto -->
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Estilos -->
   <link href="css/styles.css" rel="stylesheet">
 </head>
 
 <body>
+
+  <!-- Código original (no tocar) -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
+      <a class="navbar-brand" href="index.html">eMercado</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100 justify-content-between">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="categories.html">Categorías</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="sell.html">Vender</a>
-          </li>
-          <li class="nav-item">
-          </li>
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="categories.html">Categorías</a></li>
+          <li class="nav-item"><a class="nav-link" href="sell.html">Vender</a></li>
+          <li class="nav-item"></li>
         </ul>
       </div>
     </div>
   </nav>
+
   <main class="pb-5 container">
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+
+    <section class="catalogo">
+
+      <aside class="filtros">  <!-- Vamos a usar aside para que esté más ordenado,  representa un bloque auxiliar de la página -->
+        <h2>Filtros</h2> <!-- Creamos "filtros" -->
+
+        <h3>Marca</h3> <!-- Creamos los checkboxes para elegir marca -->
+        <label><input type="checkbox" value="Volkswagen"> Volkswagen</label>
+        <label><input type="checkbox" value="Chevrolet"> Chevrolet</label>
+        <label><input type="checkbox" value="Toyota"> Toyota</label>
+
+        <h3>Precio</h3> <!-- Creamos el rango de precio, donde el usuario puede elegir desde qué monto hasta qué monto -->
+        <label>Desde USD <input type="number" id="precio-min"></label>
+        <label>Hasta USD <input type="number" id="precio-max"></label>
+
+        <h3>Condición</h3> <!-- Creamos los checkboxes para elegir la condición -->
+        <label><input type="checkbox" value="Nuevo"> Nuevo</label>
+        <label><input type="checkbox" value="Usado"> Usado</label>
+
+      </aside>
+
+      <!-- Listado de autos -->
+      <section class="autos" id="lista-autos"></section> <!-- Aquí se cargarán las tarjetas (artículos) desde products.js -->
+
+      <!-- Ordenar -->
+      <aside class="ordenar"> <!-- Creamos inputs type=radio para que el usuario sólo pueda elegir una de las tres opciones -->
+        <h2>Ordenar por</h2>
+        <label><input type="radio" name="orden" value="menor"> Menor precio</label>
+        <label><input type="radio" name="orden" value="mayor"> Mayor precio</label>
+        <label><input type="radio" name="orden" value="relevante" checked> Más relevantes</label>
+      </aside>
+    </section> 
+
+    <!-- Páginas --> 
+    <div class="paginacion">
+      <button type="button" aria-label="Página anterior">&lt;</button> <!-- &lt significa < -->
+      <button type="button" aria-current="page">1</button>
+      <button type="button">2</button>
+      <button type="button" aria-label="Página siguiente">&gt;</button> <!-- &gt significa > -->
     </div>
   </main>
+
+  <!-- Código original (no tocar) -->
   <footer class="text-muted">
     <div class="container">
-      <p class="float-end">
-        <a href="#">Volver arriba</a>
+      <p class="float-end"><a href="#">Volver arriba</a></p>
+      <p>Este sitio forma parte de
+        <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jóvenes a Programar</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
     </div>
   </footer>
+
+  <!-- Código original (no tocar) (lo deja init.js) -->
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>
@@ -59,9 +99,12 @@
       <div></div>
     </div>
   </div>
+
+  <!-- JS del proyecto -->
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
+
+  <!-- Tu JS que hace el fetch y pinta las cards -->
   <script src="js/products.js"></script>
 </body>
-
 </html>
