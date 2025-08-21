@@ -318,6 +318,7 @@ a.custom-card:hover {
   .catalogo .autos /* Listado de autos */ {
     width: 100%;
   }
+  }
 
   /* 1) En pantallas medianas apilamos columnas */
 @media (max-width: 992px) {
@@ -334,7 +335,7 @@ a.custom-card:hover {
   }
 }
 
-  /* 2) En pantallas pequeñas, ajustamos el padding y el tamaño de las imágenes */
+/* 2) En pantallas pequeñas, ajustamos el padding y el tamaño de las imágenes */
 @media (max-width: 576px) {
   .catalogo {
     padding: 12px;
@@ -356,4 +357,70 @@ a.custom-card:hover {
   }
 }
 
+/* Esto es del login */  
+body{
+      background-image: url('../img/img-fondo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    h1 {
+      color: white;
+    }
+
+    h2 {
+      color: white;
+      text-align: center;
+    }
+
+    .columna-con-altura {
+      height: 100vh; /* Altura completa de la ventana */
+    }
+
+    .caja-de-texto {
+      border: 3px solid white;
+      border-radius: 10px;
+      background: transparent;
+      height: 10vh;
+    }
+
+    .boton {
+      background-color: #2424a0;
+      border-radius: 7px;
+    }  
+
+
+    .iconos {
+      color: white;
+    }
+
+
+     .position-relative {
+  position: relative;
 }
+
+.icono-flotante-izquierda {
+  position: absolute;
+  top: 50%;
+  left: 10px; /* Ajusta la posición izquierda */
+  transform: translateY(-50%);
+  pointer-events: none; /* Permite hacer clic en el input */
+  z-index: 2; /* Asegura que el ícono esté encima del input */
+}
+
+.icono-flotante-derecha {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Ajusta la posición derecha */
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Para que el texto no se superponga con el icono */
+input.caja-de-texto {
+  padding-left: 30px; /* Ajusta el padding para hacer espacio para el icono izquierdo */
+  padding-right: 30px; /* Ajusta el padding para hacer espacio para el icono derecho */
+} 
