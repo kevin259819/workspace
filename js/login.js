@@ -8,11 +8,16 @@ function redirigir() {
       let passwordInput = document.getElementById("Contraseña");
       let userInput = document.getElementById("Usuario");
       botonIngresar.addEventListener("click", function() {
+
         if((userInput.value !== "") && (passwordInput.value !== "")) {
-          alert("¡Bienvenido!");
+          // Guarda una señal en localStorage para indicar que el usuario ha iniciado sesión.
+
+          localStorage.setItem("isLoggedin" , "true");
+          alert("¡Bienvenido!")
+
           redirigir();
         } else {
           alert("Por favor, completa todos los campos.");
         };})
-  
-      });
+
+    });
