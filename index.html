@@ -12,6 +12,18 @@
 </head>
 
 <body>
+  <script>
+    //comprueba si el usuario ha inixiado sesinón buscando elemento "isLoggedIn" en localStorage. 
+    const isLoggedIn = localStorage . gentItem('isLoggedIn');
+
+    //si el elemento no existe o su valor no es "true" , redirige a la página de login.
+    if (isLoggedIn !== 'true') { window.location.href = 'login.html';
+    }
+  </script>
+  <nav class="navbar  navber-expand-lg navbar-dark- bg-dark p-1"></nav>
+</body>
+
+<body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
