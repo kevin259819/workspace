@@ -1,3 +1,20 @@
+
+//se ejecuta apenas se carga el script
+(function () {
+  // Verificamos si el usuario ya inició sesión
+  const logged =
+    localStorage.getItem("isLoggedIn") === "true";
+
+  // Detectamos si la página actual es "login.html"
+  // Así evitamos entrar en un bucle (redirigir estando en el login)
+  const isLogin = location.pathname.endsWith("login.html");
+
+  // Si NO está logueado y NO está en login.html
+  if (!logged && !isLogin) {
+    location.replace("login.html"); //mandamos al login.html
+  }
+})();
+
 const CATEGORIES_URL = "https://japceibal.github.io/emercado-api/cats/cat.json";
 const PUBLISH_PRODUCT_URL = "https://japceibal.github.io/emercado-api/sell/publish.json";
 const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/";
