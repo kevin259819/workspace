@@ -233,10 +233,6 @@ a.custom-card:hover {
   background: rgba(0, 0, 30, 0.6);
   border: 2px solid white;
   border-radius: 12px;
-  /* padding: 15px;
-  display: flex;
-  align-items: center; Alinea los verticalmente 
-  gap: 15px;  Espacio entre imagen y texto */
 }
 
 .catalogo .card .card-title ,
@@ -255,9 +251,6 @@ a.custom-card:hover {
   max-width: 100%;
   height: auto;
   display: block;
-  /* Si querés recorte uniforme descomentar: */
-  /* aspect-ratio: 4 / 3;
-     object-fit: cover; */
 }
 
 /* --- Panel derecho (Ordenar) --- */
@@ -343,7 +336,7 @@ a.custom-card:hover {
     justify-content: flex-start;  /* evitar que queden estirados */
     align-items: stretch;
     padding: 12px;
-    gap: 12px;                    /* espacio entre bloques */
+    gap: 12px; /* espacio entre bloques */
   }
 
   /* Orden distinto para moviles */
