@@ -22,6 +22,10 @@ document.addEventListener("DOMContentLoaded", function () {
     contenedor.innerHTML = ""; // limpiar antes de cargar
 
     productos.forEach(function (prod) {  // recorremos el array "productos"
+      
+      //columna Bootstrap
+      const col = document.createElement("div");
+      col.className = "col";
 
       // Creamos un nuevo <div> para la tarjeta
       const card = document.createElement("div");
@@ -37,6 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
           <small>${prod.soldCount} vendidos</small>
         </div>
       `;
+
+      //metemos card dentro de la columna
+      col.appendChild(card);
 
       // Agregamos la tarjeta al contenedor principal
       contenedor.appendChild(card);

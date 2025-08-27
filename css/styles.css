@@ -196,7 +196,7 @@ a.custom-card:hover {
   background: linear-gradient(135deg, #000428, #004e92); /* Fondo degradado azul oscuro */
   color: white; 
   display: flex; /* Activa Flexbox, coloca los hijos en fila por defecto */
-  justify-content: space-between; /* Distribuye los elementos con espacio entre ellos */
+  flex-direction: column;     /* base móvil apilado */
   padding: 20px; /* Espacio interno (separación entre el borde del container y el contenido) */
   gap: 20px; /* Espacio entre los elementos */
   border-radius: 12px; /* Suaviza bordes sobre fondo general */
@@ -205,7 +205,6 @@ a.custom-card:hover {
 /* --- Panel izquierdo (Filtros) --- */
 .catalogo .filtros {
   flex: 1; /* Ocupa 1 parte del espacio disponible */
-  max-width: 220px;
 }
 .catalogo .filtros h2 {
   color: #5faaff;
@@ -226,9 +225,7 @@ a.custom-card:hover {
 /* --- Panel central (autos) --- */
 .catalogo .autos {
   flex: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  width : 100%;
 }
 
 /* Tarjetas generadas por products.js */
@@ -236,14 +233,15 @@ a.custom-card:hover {
   background: rgba(0, 0, 30, 0.6);
   border: 2px solid white;
   border-radius: 12px;
-  padding: 15px;
+  /* padding: 15px;
   display: flex;
-  align-items: center; /* Alinea los verticalmente */
-  gap: 15px; /* Espacio entre imagen y texto */
+  align-items: center; Alinea los verticalmente 
+  gap: 15px;  Espacio entre imagen y texto */
 }
 
+.catalogo .card .card-title ,
 .catalogo .card h3 {
-  margin: 0;
+  margin: 0 0 4px 0;
 }
 .catalogo .precio {
   color: #5faaff;
@@ -251,10 +249,20 @@ a.custom-card:hover {
   margin-top: 10px;
 }
 
+/* Imagen de las cards: que no deforme y escale bien */
+.catalogo .card img,
+.catalogo .card .card-img-top {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  /* Si querés recorte uniforme descomentar: */
+  /* aspect-ratio: 4 / 3;
+     object-fit: cover; */
+}
+
 /* --- Panel derecho (Ordenar) --- */
 .catalogo .ordenar {
   flex: 1;
-  max-width: 180px;
 }
 .catalogo .ordenar h2 {
   color: #5faaff;
@@ -304,57 +312,44 @@ a.custom-card:hover {
   background: rgba(95,170,255,.2);
 }
 
+
 /* --- Para que el tamaño se ajuste --- */
-@media (max-width: 768px) {
+@media (min-width: 768px) /* tablet vertical */{
   .catalogo {
-    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+    flex-direction: row; 
     align-items: stretch;  /* para ocupar ancho completo */
   }
-  .catalogo .filtros, /* Panel de filtros */
-  .catalogo .ordenar /* Panel de ordenar */ {
-    max-width: 100%; 
-    text-align: left;
-  }
-  .catalogo .autos /* Listado de autos */ {
-    width: 100%;
-  }
+  .catalogo .filtros { max-width: 220px; order: 1; } /* Panel de filtros */
+  .catalogo .ordenar { max-width: 180px; order: 3; } /* Panel de ordenar */ 
+  .catalogo .autos { width: 100%; order: 2;}/* Listado de autos */ 
   }
 
-  /* 1) En pantallas medianas apilamos columnas */
-@media (max-width: 992px) {
-  .catalogo {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .catalogo .filtros,
-  .catalogo .ordenar {
-    max-width: 100%;
-  }
-  .catalogo .autos {
-    width: 100%;
-  }
-}
+@media (max-width: 576px)  /* moviles */{
 
-/* 2) En pantallas pequeñas, ajustamos el padding y el tamaño de las imágenes */
-@media (max-width: 576px) {
-  .catalogo {
+  .catalogo .card  .card-body{
     padding: 12px;
-    gap: 12px;
-  }
-
-  .catalogo .card {
-    padding: 12px;
-    gap: 12px;
-  }
-
-  .catalogo .card img {
-    width: 120px;       /* imagen más chica en móvil */
   }
 
   .catalogo .filtros h2,
   .catalogo .ordenar h2 {
     font-size: 1.2rem;
   }
+}
+
+/* arreglo: apilar y ancho completo */
+@media (max-width: 767.98px){
+  .catalogo{
+    flex-direction: column;       /* ORDEN: Filtros → Productos → Ordenar */
+    justify-content: flex-start;  /* evitar que queden estirados */
+    align-items: stretch;
+    padding: 12px;
+    gap: 12px;                    /* espacio entre bloques */
+  }
+
+  /* Orden distinto para moviles */
+  .catalogo .filtros{order: 1; max-width: 100%;}
+  .catalogo .ordenar{order: 2; max-width: 100%;}
+  .catalogo .autos{ order: 3; width: 100%;}
 }
 
 /* Esto es del login */  
