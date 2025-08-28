@@ -424,3 +424,7 @@ input.caja-de-texto {
   padding-left: 30px; /* Ajusta el padding para hacer espacio para el icono izquierdo */
   padding-right: 30px; /* Ajusta el padding para hacer espacio para el icono derecho */
 } 
+
+input::placeholder {
+       text-align: center;
+    }
