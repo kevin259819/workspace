@@ -345,6 +345,25 @@ a.custom-card:hover {
   .catalogo .autos{ order: 3; width: 100%;}
 }
 
+/* Igualar alturas y layout vertical */
+.catalogo .autos .col { display:flex; }
+.catalogo .autos .card { display:flex; flex-direction:column; width:100%; }
+
+/* El body en columna para poder usar mt-auto */
+.catalogo .card .card-body { display:flex; flex-direction:column; }
+
+/* Imagen uniforme */
+.catalogo .card .card-img-top { aspect-ratio: 16/9; object-fit: cover; width:100%; }
+
+/* Evitar que títulos/desc cambien el alto de la card en exceso */
+.catalogo .card .card-title { line-height:1.3; min-height:2.6em; } /* ~2 líneas */
+.catalogo .card .card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;        /* máx 3 líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* Esto es del login */  
 body{
       background-image: url('../img/img-fondo.jpg');
@@ -416,3 +435,5 @@ input.caja-de-texto {
 input::placeholder {
        text-align: center;
     }
+
+
