@@ -23,22 +23,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     productos.forEach(function (prod) {  // recorremos el array "productos"
       
-      //columna Bootstrap
+      // columna Bootstrap: que estire a la misma altura
       const col = document.createElement("div");
-      col.className = "col";
+      col.className = "col d-flex";
 
-      // Creamos un nuevo <div> para la tarjeta
+      // tarjeta: h-100 para que iguale alturas dentro de la fila
       const card = document.createElement("div");
-      card.classList.add("card");
+      card.className = "card h-100"; // en vez de classList.add("card")
 
-      // Rellenamos con la info del producto
       card.innerHTML = `
-        <img src="${prod.image}" alt="${prod.name}">
-        <div>
-          <h3>${prod.name}</h3>
-          <p>${prod.description}</p>
-          <p class="precio">${prod.currency} ${prod.cost}</p>
-          <small>${prod.soldCount} vendidos</small>
+        <img src="${prod.image}" alt="${prod.name}" class="card-img-top">
+        <div class="card-body d-flex flex-column">
+          <h3 class="card-title">${prod.name}</h3>
+          <p class="card-text">${prod.description}</p>
+
+          <!-- Este bloque se pega al fondo gracias a mt-auto -->
+          <div class="mt-auto">
+            <p class="precio mb-1">${prod.currency} ${prod.cost}</p>
+            <small class="text-white-50">${prod.soldCount} vendidos</small>
+          </div>
         </div>
       `;
 
@@ -46,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
       col.appendChild(card);
 
       // Agregamos la tarjeta al contenedor principal
-      contenedor.appendChild(card);
+      contenedor.appendChild(col);
     });
   }
 });
