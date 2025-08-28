@@ -360,6 +360,7 @@ a.custom-card:hover {
 .catalogo .card .card-text {
   display: -webkit-box;
   -webkit-line-clamp: 3;        /* máx 3 líneas */
+  line-clamp: 3;                /* estándar para compatibilidad */
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
