@@ -37,13 +37,43 @@
       </div>
     </div>
   </nav>
-  <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+  
+  <main class="container mt-5">
+  <div class="product-detail-card">
+    <div class="row">
+      <div class="col-md-5 product-left-panel">
+        <div id="product-images" class="image-gallery">
+          <div class="main-image-display">
+            <img id="main-product-image" src="" alt="Imagen del producto" class="img-fluid">
+          </div>
+          <div class="image-navigation">
+            <button id="prev-image-btn" class="btn btn-outline-primary image-nav-btn">&laquo;</button>
+            <button id="next-image-btn" class="btn btn-outline-primary image-nav-btn">&raquo;</button>
+          </div>
+          <div id="image-thumbnails" class="thumbnail-gallery mt-2">
+            </div>
+        </div>
+        <div class="product-stats">
+          <p><strong>Calificación:</strong> <span id="product-rating"></span></p>
+          <p><strong>Unids. en Stock:</strong> <span id="product-stock"></span></p>
+            <p><strong>Vendidos:</strong> <span id="product-sold"></span></p>
+            <button id="buy-btn" class="btn btn-primary btn-block mt-3">COMPRAR</button>
+          </div>
+        </div>
+        <div class="col-md-7 product-right-panel">
+          <h2 id="product-name" class="product-title"></h2>
+          <hr class="product-hr">
+          <p id="product-description" class="product-description-text"></p>
+          <hr class="product-hr">
+          <p id="product-category" class="product-category-text"></p>
+        </div>
       </div>
+      <div class="product-comments-section mt-4">
+        <h3>Comentarios</h3>
+        </div>
     </div>
-  </main>
+</main>
+    
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
