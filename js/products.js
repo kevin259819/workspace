@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let products = []; // para guardar los productos
 
   // URL de la API
-  const url = "https://japceibal.github.io/emercado-api/cats_products/101.json";
+   const url = "https://japceibal.github.io/emercado-api/cats_products/" + localStorage.getItem("catID") + ".json"; // Arma la URL completa para pedir los productos correctos según la categoría elegida
 
   // Llamada a la API con fetch
   fetch(url)
