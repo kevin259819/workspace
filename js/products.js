@@ -33,6 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const card = document.createElement("div");
       card.className = "card h-100"; // en vez de classList.add("card")
 
+      card.setAttribute("data-id" , prod.id);
+      card.addEventListener('click' , function() {
+
+        localStorage.setItem("productId" , prod.id);
+        window.location.href = "product-info.html";
+        });
+
       card.innerHTML = `
         <img src="${prod.image}" alt="${prod.name}" class="card-img-top">
         <div class="card-body d-flex flex-column">
