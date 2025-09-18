@@ -638,3 +638,43 @@ input::placeholder {
   background-color: #000850;
 }
 
+/* Estilos para el área de agregar un nuevo comentario */
+.add-comment-section {
+  color: #028CC8;
+  font-weight: bold;
+  background-color: #030934;
+  border: 2px solid #477BDD;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 20px;
+  box-shadow: 0 0 20px -2px rgba(0, 150, 255, 0.7);
+}
+
+#comment-text {
+  width: 100%;
+  background-color: #070B25;
+  border: 1px solid #AAA3A3;
+  border-radius: 8px;
+  padding: 8px;
+  resize: vertical; /* permite redimensionar verticalmente */
+}
+
+#comment-text ::placeholder {
+  color: #ffffff;
+}
+
+ #estrellas{
+  margin-top: 10px;
+  color: #FFF70080;
+ }
+
+ #estrellas:hover{
+  color: #FFF700;
+ }
+
+ #enviar-comentario {
+  height: 30px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
