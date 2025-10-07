@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // URL de la API con el ID del producto
   const productUrl = `https://japceibal.github.io/emercado-api/products/${productId}.json`;
+  // URL de comentarios del producto
+  const commentsUrl = `https://japceibal.github.io/emercado-api/products_comments/${productId}.json`;
 
   // Hacemos la petición a la API
   fetch(productUrl)
@@ -102,4 +104,39 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => {
       console.error('Hubo un problema con la solicitud:', error);
     });
+
+    // Hacemos la solicitud a la API para traer los comentarios del producto
+    fetch(commentsUrl)
+    .then(response => response.json())   // Convertimos la respuesta en JSON
+    .then(commentsData => {
+      // Seleccionamos el contenedor donde vamos a mostrar los comentarios
+      const commentsContainer = document.getElementById('comments-container');
+      commentsContainer.innerHTML = '';  // Limpiamos por si había algo antes
+
+      // Recorremos cada comentario del array recibido desde la API
+      commentsData.forEach(comment => {
+        // Generamos las estrellas según el puntaje (score)
+        const stars = '★'.repeat(comment.score) + '☆'.repeat(5 - comment.score);
+
+        // Creamos un div para el comentario
+        const commentDiv = document.createElement('div');
+        commentDiv.classList.add('comment-card'); // Clase CSS para estilos
+
+        // Definimos el contenido del comentario con HTML
+        commentDiv.innerHTML = `
+          <div class="comment-header">
+            <span class="comment-user">${comment.user}</span>
+            <span class="comment-date">${comment.dateTime}</span>
+          </div>
+          <div class="comment-body">
+            <p>${comment.description}</p>
+            <div class="comment-stars">${stars}</div>
+          </div>`;
+
+        // Agregamos el comentario al contenedor en el HTML
+        commentsContainer.appendChild(commentDiv);
+      });
+    })
+    .catch(error => console.error('Error al cargar comentarios:', error));
 });
+

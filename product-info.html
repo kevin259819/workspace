@@ -51,30 +51,48 @@
             <button id="next-image-btn" class="btn btn-outline-primary image-nav-btn">&raquo;</button>
           </div>
           <div id="image-thumbnails" class="thumbnail-gallery mt-2">
-            </div>
+          </div>
         </div>
         <div class="product-stats">
           <p><strong>Calificación:</strong> <span id="product-rating"></span></p>
           <p><strong>Unids. en Stock:</strong> <span id="product-stock"></span></p>
             <p><strong>Vendidos:</strong> <span id="product-sold"></span></p>
             <button id="buy-btn" class="btn btn-primary btn-block mt-3">COMPRAR</button>
-          </div>
-        </div>
-        <div class="col-md-7 product-right-panel">
-          <h2 id="product-name" class="product-title"></h2>
-          <hr class="product-hr">
-          <p id="product-description" class="product-description-text"></p>
-          <hr class="product-hr">
-          <p id="product-category" class="product-category-text"></p>
         </div>
       </div>
-      <div class="product-comments-section mt-4">
-        <h3>Comentarios</h3>
-    </div>
-    <div class="related-products-section mt-4">
-      <h3>Productos relacionados</h3>
-      <div id="related-products" class="d-flex gap-3g"></div>
-    </div>
+      <div class="col-md-7 product-right-panel">
+        <h2 id="product-name" class="product-title"></h2>
+        <hr class="product-hr">
+        <p id="product-description" class="product-description-text"></p>
+        <hr class="product-hr">
+        <p id="product-category" class="product-category-text"></p>
+        <div class="product-comments-section mt-4">
+          <h3 class="comments-title">Calificaciones</h3>
+          <div id="comments-container" class="comments-box"></div>
+        </div>
+                <!-- Área para agregar un nuevo comentario -->
+        <div class="add-comment-section mt-4">
+          <h4 class="add-comment-title text-center" >Calificar</h4>
+          <form id="comment-form">
+            <div class="mb-3">
+              <textarea id="comment-text" class="form-control" rows="1" required placeholder="Escribir comentario"></textarea>
+             <div class="d-flex"><div id="estrellas" class="d-flex"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                   <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                    </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                      <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                      </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                        </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                         <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                          </svg></div><div class="justify-content-end ms-auto">
+                          <!--botón para enviar el comentario--> 
+                         <button id="enviar-comentario" type="submit" class="btn btn-primary mt-2 justify-content-end" >Enviar</button>
+                        
+                      </div>
+            </div>
+
 </main>
     
   <footer class="text-muted">

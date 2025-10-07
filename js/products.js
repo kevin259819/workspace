@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let products = []; // para guardar los productos
 
   // URL de la API
-  const url = "https://japceibal.github.io/emercado-api/cats_products/101.json";
+  const url = "https://japceibal.github.io/emercado-api/cats_products/" + localStorage.getItem("catID") + ".json"; // Arma la URL completa para pedir los productos correctos según la categoría elegida
 
   // Llamada a la API con fetch
   fetch(url)
@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
       return respuesta.json(); // convertimos la respuesta a JSON
     })
     .then(function (datos) {
-      products = datos.products || [] //Ahora 'products' queda disponible para el buscador
-      mostrarProductos(products); // llamamos a la función con los productos
+      products = datos.products || [] //guarda el array original
+      aplicarFiltrosYOrden(); // llamamos a la función con los productos
     })
     .catch(function (error) {
       console.error("Error al cargar los productos:", error);
@@ -65,20 +65,79 @@ document.addEventListener("DOMContentLoaded", function () {
   //Buscador al presionar enter
   searchInput.addEventListener("keypress", function(e){
     if(e.key === "Enter"){
-      const query = this.value.toLowerCase().trim(); //pasamos a minuscula
-    
-      const filtrados = products.filter(function(p) //array con los productos coincidentes con la bsuqueda
-      {
-        return (
-          p.name.toLowerCase().includes(query) ||
-          p.description.toLowerCase().includes(query)
-        );
-      });
-      //mostrar los productos resultantes
-      if(query === "")
-        mostrarProductos(products);
-      else
-        mostrarProductos(filtrados);
+      aplicarFiltrosYOrden();
     }
   });
+
+  /* ==== Filtros y orden para products.html ==== */
+  var inputMin = document.getElementById("precio-min");
+  var inputMax = document.getElementById("precio-max");
+  var radiosOrden = document.querySelectorAll('input[name="orden"]');
+
+  /** Devuelve el arreglo filtrado por buscador y precio, y ordenado según el radio elegido */
+  function obtenerFiltradosYOrdenados() {
+    var lista = products.slice(0); // copia para no tocar el original
+
+    // --- Buscador (lo tomamos del input actual)
+    var q = (searchInput && searchInput.value ? searchInput.value : "").trim().toLowerCase();
+    if (q !== "") {
+      lista = lista.filter(function (p) {
+        return (
+          String(p.name).toLowerCase().includes(q) ||
+          String(p.description).toLowerCase().includes(q)
+        );
+      });
+    }
+
+    // --- Filtro por precio
+    var min = parseInt(inputMin && inputMin.value, 10);
+    var max = parseInt(inputMax && inputMax.value, 10);
+    if (isNaN(min)) min = null;
+    if (isNaN(max)) max = null;
+
+    if (min !== null) {
+      lista = lista.filter(function (p) { return Number(p.cost) >= min; });
+    }
+    if (max !== null) {
+      lista = lista.filter(function (p) { return Number(p.cost) <= max; });
+    }
+
+    // --- Orden
+    var criterio = "relevante"; // coincide con "Más relevantes"
+    for (var i = 0; i < radiosOrden.length; i++) {
+      if (radiosOrden[i].checked) {
+        criterio = radiosOrden[i].value; // "menor" | "mayor" | "relevante"
+        break;
+      }
+    }
+
+    if (criterio === "menor") {
+      lista.sort(function (a, b) { return Number(a.cost) - Number(b.cost); });
+    } else if (criterio === "mayor") {
+      lista.sort(function (a, b) { return Number(b.cost) - Number(a.cost); });
+    } else { // "relevante"
+      lista.sort(function (a, b) { return Number(b.soldCount) - Number(a.soldCount); });
+    }
+
+    return lista;
+  }
+
+  function aplicarFiltrosYOrden() {
+    var resultado = obtenerFiltradosYOrdenados();
+    if (typeof mostrarProductos === "function") {
+      mostrarProductos(resultado);
+    } else {
+      console.warn("No se encontró mostrarProductos(resultado)");
+    }
+  }
+
+  /* ==== Listeners ==== */
+  // Precio: aplicamos en vivo al tipear/cambiar
+  if (inputMin) inputMin.addEventListener("input", aplicarFiltrosYOrden);
+  if (inputMax) inputMax.addEventListener("input", aplicarFiltrosYOrden);
+
+  // Orden: al cambiar el radio
+  for (var r = 0; r < radiosOrden.length; r++) {
+    radiosOrden[r].addEventListener("change", aplicarFiltrosYOrden);
+  }
 });

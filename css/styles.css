@@ -545,13 +545,14 @@ input::placeholder {
 }
 
 .product-hr {
-    border-top: 1px solid #ffffff;
+    border-top: 3px solid white;
     margin: 15px 0;
 }
 
 .product-description-text {
     font-size: 1em;
     line-height: 1.6;
+    color: white;
 }
 
 .product-category-text {
@@ -578,4 +579,102 @@ input::placeholder {
     border-color: #007bff;
     font-weight: bold;
     letter-spacing: 1px;
+}
+
+.product-stats p{
+  color: #ffffff !important;
+}
+
+.comment-card {
+  background-color: #000850;
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+/* Cabecera con usuario y fecha */
+.comment-header {
+  display: flex;
+  justify-content: flex-start;
+  font-weight: bold;
+}
+
+.comment-date::before{
+  content: " - ";   /* espacio + guion + espacio */
+  margin: 1rem; 
+  color: white;
+}
+
+.comment-user {
+  color: #00bfff; /* resalta el usuario */
+}
+
+.comment-date {
+  font-size: 0.85em;
+  color: white;
+}
+
+/* Estrellas */
+.comment-stars {
+  color: gold;
+  font-size: 1.1em;
+}
+
+.product-comments-section{
+  border: 1px solid #1f3b82;   /* color del borde */
+  border-radius: 12px;         /* esquinas redondeadas */
+  padding: 16px;               /* que no pegue contra el borde */
+  background-color: #081162;
+}
+
+.comments-box{
+  max-height:210px;           /* scroll vertical*/
+  overflow-y:auto;
+  padding-right:6px;
+  border: 1px solid #1f3b82;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #000850;
+}
+
+/* Estilos para el área de agregar un nuevo comentario */
+.add-comment-section {
+  color: #028CC8;
+  font-weight: bold;
+  background-color: #030934;
+  border: 2px solid #477BDD;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 20px;
+  box-shadow: 0 0 20px -2px rgba(0, 150, 255, 0.7);
+}
+
+#comment-text {
+  width: 100%;
+  background-color: #070B25;
+  border: 1px solid #AAA3A3;
+  border-radius: 8px;
+  padding: 8px;
+  resize: vertical; /* permite redimensionar verticalmente */
+}
+
+#comment-text ::placeholder {
+  color: #ffffff;
+}
+
+ #estrellas{
+  margin-top: 10px;
+  color: #FFF70080;
+ }
+
+ #estrellas:hover{
+  color: #FFF700;
+ }
+
+ #enviar-comentario {
+  height: 30px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
 }
