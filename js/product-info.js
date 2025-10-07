@@ -75,6 +75,30 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('prev-image-btn').addEventListener('click', prevImage);
       document.getElementById('next-image-btn').addEventListener('click', nextImage);
     })
+
+    const relatedContainer = document.getElementById('related-products');
+    relatedContainer.innerHTML = '';
+    productData.relatedProducts.forEach(related => {
+      const card = document.createElement('div');
+      card.classList.add('card' , 'p-2')
+      card.style.width = '150px';
+      card.style.cursor = 'pointer'
+      card.innerHTML = ` <img src="${related.image}"
+      alt="${related.name}" class="img-fluidrounded">
+     <p class=" mt-2 text-center">$ {related.name}</p>
+      `;
+
+      // Cuando el usuario hace clic en un producto relacionado
+      card.addEventListener('click' , () => {
+        localStorage.setItem('productId', related.id);
+        location.reload(); 
+        
+        //Recargar la pagina mostrando el rpoducto seleccionado
+      });
+      relatedContainer.appendChild(card);
+       
+
+    })
     .catch(error => {
       console.error('Hubo un problema con la solicitud:', error);
     });
