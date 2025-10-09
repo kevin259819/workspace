@@ -76,6 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // Agregamos eventos a los botones de la galería
       document.getElementById('prev-image-btn').addEventListener('click', prevImage);
       document.getElementById('next-image-btn').addEventListener('click', nextImage);
+
+      if (productData.relatedProducts && productData.relatedProducts.length > 0){
+        mostrarProductosRelacionados(productData.relatedProducts);
+      }
     })
 
     .catch(error => {
@@ -114,56 +118,36 @@ document.addEventListener('DOMContentLoaded', () => {
         commentsContainer.appendChild(commentDiv);
       });
     })
+    
     .catch(error => console.error('Error al cargar comentarios:', error));
 });
 
-// Productos relacionados
-function mostrarProductosRelacionados(productoActual, allProducts) {
+ //Productos relacionados
+function mostrarProductosRelacionados(relatedProductsArray) {
   const relatedContainer = document.getElementById('related-products-container');
-  relatedContainer.innerHTML = '';
+  relatedContainer.innerHTML = ''; 
 
-  // Filtrar productos de la misma categoría
-  const relacionados = allProducts.filter(p => p.category === productoActual.category && p.id !== 
-  productoActual.id);
-
-  relacionados.forEach(related => {
+  // Usamos el array que viene del fetch principal (productData.relatedProducts)
+  relatedProductsArray.forEach(related => {
     const cardContainer = document.createElement('div');
-    cardContainer.classList.add('col-md-4', 'col-lg-3', 'mb-4');
+    cardContainer.classList.add('col-md-6', 'col-lg-4', 'col-xl-3', 'mb-4'); 
     cardContainer.style.cursor = 'pointer';
 
     cardContainer.innerHTML = `
       <div class="card shadow-sm h-100">
-        <img src="${related.images[0]}" alt="${related.name}" class="card-img-top">
+        <img src="${related.image}" alt="${related.name}" class="card-img-top object-fit-cover" style="height: 150px;">
         <div class="card-body p-2">
-          <p class="card-title text-center mb-0">${related.name}</p>
+          <p class="card-title text-center fw-bold mb-0">${related.name}</p>
         </div>
       </div>
     `;
 
-    // click para actualizar el producto seleccionado
+    // Actualiza el ID y recarga la página
     cardContainer.addEventListener('click', () => {
       localStorage.setItem('productId', related.id);
-      location.reload(); // recarga la página mostrando el producto seleccionado
+      location.reload(); 
     });
 
     relatedContainer.appendChild(cardContainer);
   });
 }
-
-// Ejecutar productos relacionados al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-  const productId = localStorage.getItem('productId');
-  if (!productId) return;
-
-  // Traemos el producto actual
-  fetch(`https://japceibal.github.io/emercado-api/products/${productId}.json`)
-    .then(response => response.json())
-    .then(productData => {
-      // Traemos todos los productos para poder filtrar relacionados
-      fetch('https://japceibal.github.io/emercado-api/cats_products/${productData.categoryId.}json') 
-        .then(resp => resp.json())
-        .then(allProducts => {
-          mostrarProductosRelacionados(productData, allProducts);
-        });
-    });
-});
