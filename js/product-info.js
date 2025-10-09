@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('prev-image-btn').addEventListener('click', prevImage);
       document.getElementById('next-image-btn').addEventListener('click', nextImage);
     })
+
     .catch(error => {
       console.error('Hubo un problema con la solicitud:', error);
     });
@@ -116,3 +117,53 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => console.error('Error al cargar comentarios:', error));
 });
 
+// Productos relacionados
+function mostrarProductosRelacionados(productoActual, allProducts) {
+  const relatedContainer = document.getElementById('related-products-container');
+  relatedContainer.innerHTML = '';
+
+  // Filtrar productos de la misma categoría
+  const relacionados = allProducts.filter(p => p.category === productoActual.category && p.id !== 
+  productoActual.id);
+
+  relacionados.forEach(related => {
+    const cardContainer = document.createElement('div');
+    cardContainer.classList.add('col-md-4', 'col-lg-3', 'mb-4');
+    cardContainer.style.cursor = 'pointer';
+
+    cardContainer.innerHTML = `
+      <div class="card shadow-sm h-100">
+        <img src="${related.images[0]}" alt="${related.name}" class="card-img-top">
+        <div class="card-body p-2">
+          <p class="card-title text-center mb-0">${related.name}</p>
+        </div>
+      </div>
+    `;
+
+    // click para actualizar el producto seleccionado
+    cardContainer.addEventListener('click', () => {
+      localStorage.setItem('productId', related.id);
+      location.reload(); // recarga la página mostrando el producto seleccionado
+    });
+
+    relatedContainer.appendChild(cardContainer);
+  });
+}
+
+// Ejecutar productos relacionados al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+  const productId = localStorage.getItem('productId');
+  if (!productId) return;
+
+  // Traemos el producto actual
+  fetch(`https://japceibal.github.io/emercado-api/products/${productId}.json`)
+    .then(response => response.json())
+    .then(productData => {
+      // Traemos todos los productos para poder filtrar relacionados
+      fetch('https://japceibal.github.io/emercado-api/cats_products/${productData.categoryId.}json') 
+        .then(resp => resp.json())
+        .then(allProducts => {
+          mostrarProductosRelacionados(productData, allProducts);
+        });
+    });
+});
