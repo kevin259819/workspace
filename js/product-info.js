@@ -2,62 +2,22 @@
 let productImages = [];
 let currentImageIndex = 0;
 
-// Función para mostrar la imagen principal y resaltar la miniatura
-function showImage(index) {
-  const mainImage = document.getElementById('main-product-image');
-  if (productImages.length > 0 && mainImage) {
-    mainImage.src = productImages[index];
-    const thumbnails = document.querySelectorAll('.thumbnail-gallery img');
-    thumbnails.forEach((thumb, i) => {
-      thumb.classList.toggle('active', i === index);
-    });
-  }
-}
-
-// Función para cambiar a la siguiente imagen
-function nextImage() {
-  currentImageIndex = (currentImageIndex + 1) % productImages.length;
-  showImage(currentImageIndex);
-}
-
-// Función para cambiar a la imagen anterior
-function prevImage() {
-  currentImageIndex = (currentImageIndex - 1 + productImages.length) % productImages.length;
-  showImage(currentImageIndex);
-}
-
-// Función para generar las miniaturas de las imágenes
-function generateThumbnails(imagesArray) {
-  const thumbnailContainer = document.getElementById('image-thumbnails');
-  thumbnailContainer.innerHTML = '';
-  imagesArray.forEach((imageUrl, index) => {
-    const thumbImg = document.createElement('img');
-    thumbImg.src = imageUrl;
-    thumbImg.alt = `Miniatura ${index + 1}`;
-    thumbImg.addEventListener('click', () => {
-      currentImageIndex = index;
-      showImage(currentImageIndex);
-    });
-    thumbnailContainer.appendChild(thumbImg);
-  });
-}
-
-// Lógica principal: se ejecuta cuando la página carga
-document.addEventListener('DOMContentLoaded', () => {
+// === Inicialización principal ===
+function initProductInfoPage() {
   const productId = localStorage.getItem('productId');
 
   if (!productId) {
     console.error('No se encontró el ID del producto.');
     return;
   }
+  cargarInfoProducto(productId);
+  cargarComentariosProducto(productId);
+}
 
-  // URL de la API con el ID del producto
-  const productUrl = `https://japceibal.github.io/emercado-api/products/${productId}.json`;
-  // URL de comentarios del producto
-  const commentsUrl = `https://japceibal.github.io/emercado-api/products_comments/${productId}.json`;
-
-  // Hacemos la petición a la API
-  fetch(productUrl)
+// === Carga los datos del producto ===
+function cargarInfoProducto(productId) {
+   // Hacemos la petición a la API
+  fetch(PRODUCT_INFO_URL + productId + EXT_TYPE)
     .then(response => response.json())
     .then(productData => {
       // Rellenamos el HTML con los datos del producto
@@ -85,9 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => {
       console.error('Hubo un problema con la solicitud:', error);
     });
+}
 
-    // Hacemos la solicitud a la API para traer los comentarios del producto
-    fetch(commentsUrl)
+// === Carga los comentarios ===
+function cargarComentariosProducto(productId) {
+  // Hacemos la solicitud a la API para traer los comentarios del producto
+    fetch(PRODUCT_INFO_COMMENTS_URL + productId + EXT_TYPE)
     .then(response => response.json())   // Convertimos la respuesta en JSON
     .then(commentsData => {
       // Seleccionamos el contenedor donde vamos a mostrar los comentarios
@@ -120,7 +83,47 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     
     .catch(error => console.error('Error al cargar comentarios:', error));
-});
+}
+
+// Función para mostrar la imagen principal y resaltar la miniatura
+function showImage(index) {
+  const mainImage = document.getElementById('main-product-image');
+  if (productImages.length > 0 && mainImage) {
+    mainImage.src = productImages[index];
+    const thumbnails = document.querySelectorAll('.thumbnail-gallery img');
+    thumbnails.forEach((thumb, i) => {
+      thumb.classList.toggle('active', i === index);
+    });
+  }
+}
+
+// Función para generar las miniaturas de las imágenes
+function generateThumbnails(imagesArray) {
+  const thumbnailContainer = document.getElementById('image-thumbnails');
+  thumbnailContainer.innerHTML = '';
+  imagesArray.forEach((imageUrl, index) => {
+    const thumbImg = document.createElement('img');
+    thumbImg.src = imageUrl;
+    thumbImg.alt = `Miniatura ${index + 1}`;
+    thumbImg.addEventListener('click', () => {
+      currentImageIndex = index;
+      showImage(currentImageIndex);
+    });
+    thumbnailContainer.appendChild(thumbImg);
+  });
+}
+
+// Función para cambiar a la siguiente imagen
+function nextImage() {
+  currentImageIndex = (currentImageIndex + 1) % productImages.length;
+  showImage(currentImageIndex);
+}
+
+// Función para cambiar a la imagen anterior
+function prevImage() {
+  currentImageIndex = (currentImageIndex - 1 + productImages.length) % productImages.length;
+  showImage(currentImageIndex);
+}
 
  //Productos relacionados
 function mostrarProductosRelacionados(relatedProductsArray) {
@@ -151,3 +154,6 @@ function mostrarProductosRelacionados(relatedProductsArray) {
     relatedContainer.appendChild(cardContainer);
   });
 }
+
+// === Inicializa cuando se carga el documento ===
+document.addEventListener('DOMContentLoaded', initProductInfoPage);

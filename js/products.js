@@ -1,13 +1,27 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const contenedor = document.getElementById("lista-autos");
-  const searchInput = document.getElementById("search");
-  let products = []; // para guardar los productos
 
-  // URL de la API
-  const url = "https://japceibal.github.io/emercado-api/cats_products/" + localStorage.getItem("catID") + ".json"; // Arma la URL completa para pedir los productos correctos según la categoría elegida
+let products = []; // para guardar los productos
+let contenedor;
+let searchInput;
+let inputMin;
+let inputMax;
+let radiosOrden;
 
-  // Llamada a la API con fetch
-  fetch(url)
+// === Función principal de inicio ===
+function inicializarProductsPage() {
+  contenedor = document.getElementById("lista-autos");
+  searchInput = document.getElementById("search");
+  /* ==== Filtros y orden para products.html ==== */
+  inputMin = document.getElementById("precio-min");
+  inputMax = document.getElementById("precio-max");
+  radiosOrden = document.querySelectorAll('input[name="orden"]');
+
+  cargarProductos();      
+  setEventListeners(); 
+}
+
+// === Carga los productos desde la API ===
+function cargarProductos() {
+  fetch(PRODUCTS_URL + localStorage.getItem("catID") + EXT_TYPE)
     .then(function (respuesta) {
       return respuesta.json(); // convertimos la respuesta a JSON
     })
@@ -18,8 +32,9 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch(function (error) {
       console.error("Error al cargar los productos:", error);
     });
+}
 
-  // Función para mostrar productos
+// Función para mostrar productos
   function mostrarProductos(productos) {
     contenedor.innerHTML = ""; // limpiar antes de cargar
 
@@ -60,21 +75,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // Agregamos la tarjeta al contenedor principal
       contenedor.appendChild(col);
     });
-  }
+}
 
-  //Buscador al presionar enter
-  searchInput.addEventListener("keypress", function(e){
-    if(e.key === "Enter"){
-      aplicarFiltrosYOrden();
-    }
-  });
-
-  /* ==== Filtros y orden para products.html ==== */
-  var inputMin = document.getElementById("precio-min");
-  var inputMax = document.getElementById("precio-max");
-  var radiosOrden = document.querySelectorAll('input[name="orden"]');
-
-  /** Devuelve el arreglo filtrado por buscador y precio, y ordenado según el radio elegido */
+ /** Devuelve el arreglo filtrado por buscador y precio, y ordenado según el radio elegido */
   function obtenerFiltradosYOrdenados() {
     var lista = products.slice(0); // copia para no tocar el original
 
@@ -122,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return lista;
   }
 
+  // === Aplica los filtros y orden ===
   function aplicarFiltrosYOrden() {
     var resultado = obtenerFiltradosYOrdenados();
     if (typeof mostrarProductos === "function") {
@@ -131,13 +135,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  /* ==== Listeners ==== */
-  // Precio: aplicamos en vivo al tipear/cambiar
-  if (inputMin) inputMin.addEventListener("input", aplicarFiltrosYOrden);
-  if (inputMax) inputMax.addEventListener("input", aplicarFiltrosYOrden);
-
-  // Orden: al cambiar el radio
-  for (var r = 0; r < radiosOrden.length; r++) {
-    radiosOrden[r].addEventListener("change", aplicarFiltrosYOrden);
+  // === Define los eventos de la página ===
+  function setEventListeners(){
+    //Buscador al presionar enter
+    if (searchInput) {
+    searchInput.addEventListener("keypress", e => {
+      if (e.key === "Enter") aplicarFiltrosYOrden();
+    });
+    }
+    // Precio: aplicamos en vivo al tipear/cambiar
+    if (inputMin) inputMin.addEventListener("input", aplicarFiltrosYOrden);
+    if (inputMax) inputMax.addEventListener("input", aplicarFiltrosYOrden);
+    
+    // Orden: al cambiar el radio
+    for (var r = 0; r < radiosOrden.length; r++) {
+      radiosOrden[r].addEventListener("change", aplicarFiltrosYOrden);
+    }
   }
-});
+
+document.addEventListener("DOMContentLoaded", inicializarProductsPage)
+  
