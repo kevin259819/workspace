@@ -12,6 +12,7 @@ function initProductInfoPage() {
   }
   cargarInfoProducto(productId);
   cargarComentariosProducto(productId);
+  configurarNuevoComentario(productId);
 }
 
 // === Carga los datos del producto ===
@@ -80,10 +81,93 @@ function cargarComentariosProducto(productId) {
         // Agregamos el comentario al contenedor en el HTML
         commentsContainer.appendChild(commentDiv);
       });
+       // Cargar comentarios guardados localmente (simulados)
+      const guardados = JSON.parse(localStorage.getItem("comentarios_" + productId)) || [];
+      guardados.forEach(c => {
+        const stars = '★'.repeat(c.score) + '☆'.repeat(5 - c.score);
+        const commentDiv = document.createElement('div');
+        commentDiv.classList.add('comment-card');
+        commentDiv.innerHTML = `
+          <div class="comment-header">
+            <span class="comment-user">${c.user}</span>
+            <span class="comment-date">${c.dateTime}</span>
+          </div>
+          <div class="comment-body">
+            <p>${c.description}</p>
+            <div class="comment-stars">${stars}</div>
+          </div>`;
+        commentsContainer.appendChild(commentDiv);
+      });
     })
     
     .catch(error => console.error('Error al cargar comentarios:', error));
 }
+// === Configurar envío de nueva calificación ===
+function configurarNuevoComentario(productId) {
+  const estrellas = document.querySelectorAll("#estrellas svg");
+  const botonEnviar = document.getElementById("enviar-comentario");
+  const comentarioInput = document.getElementById("comment-text");
+  const contenedorComentarios = document.getElementById("comments-container");
+
+  if (!botonEnviar || !comentarioInput || !contenedorComentarios) return;
+
+  let puntuacion = 0;
+
+  // Permitir seleccionar estrellas (1–5)
+  estrellas.forEach((estrella, i) => {
+    estrella.addEventListener("click", () => {
+      puntuacion = i + 1;
+      estrellas.forEach((e, j) =>  e.style.color = j < puntuacion ? "gold" : "gray");
+    });
+  });
+
+  // Enviar comentario
+  botonEnviar.addEventListener("click", (e) => {
+    e.preventDefault();
+    const texto = comentarioInput.value.trim();
+    if (!texto || puntuacion === 0) {
+      alert("Por favor, escribe un comentario y selecciona estrellas.");
+      return;
+    }
+
+    const usuario = localStorage.getItem("username");
+    const fecha = new Date().toLocaleString();
+
+    const nuevoComentario = {
+      user: usuario,
+      description: texto,
+      score: puntuacion,
+      dateTime: fecha
+    };
+
+    // Guardar en localStorage
+    const key = "comentarios_" + productId;
+    const guardados = JSON.parse(localStorage.getItem(key)) || [];
+    guardados.push(nuevoComentario);
+    localStorage.setItem(key, JSON.stringify(guardados));
+
+    // Mostrarlo inmediatamente en pantalla (como uno más)
+    const stars = '★'.repeat(puntuacion) + '☆'.repeat(5 - puntuacion);
+    const commentDiv = document.createElement('div');
+    commentDiv.classList.add('comment-card');
+    commentDiv.innerHTML = `
+      <div class="comment-header">
+        <span class="comment-user">${usuario}</span>
+        <span class="comment-date">${fecha}</span>
+      </div>
+      <div class="comment-body">
+        <p>${texto}</p>
+        <div class="comment-stars">${stars}</div>
+      </div>`;
+    contenedorComentarios.appendChild(commentDiv);
+    
+    // Limpiar el formulario
+    comentarioInput.value = "";
+    puntuacion = 0;
+    estrellas.forEach(e => e.style.color = "gray");
+  });
+}
+
 
 // Función para mostrar la imagen principal y resaltar la miniatura
 function showImage(index) {
