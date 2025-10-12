@@ -31,9 +31,13 @@
           <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
           <li class="nav-item"><a class="nav-link" href="categories.html">Categorías</a></li>
           <li class="nav-item"><a class="nav-link" href="sell.html">Vender</a></li>
-          <li class="nav-item"></li>
-          <span class="nav-link" id="nombre-usuario"></span> <!-- Span vacío donde después se va a mostrar el nombre del usuario -->
-        </ul>
+          <li class="nav-item dropdown">
+           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <span id="nombre-usuario">Usuario</span></a>
+       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+         <li><a class="dropdown-item" href="my-profile.html">Mi Perfil</a></li>
+        <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+       </ul>
       </div>
     </div>
   </nav>
