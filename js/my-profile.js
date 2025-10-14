@@ -23,6 +23,11 @@ const defaultEmail = storedUserEmail || "usuario@ejemplo.com";
     emailInput.value = defaultEmail;
   }
 
+  // Cargar imagen de perfil guardada si existe
+  if (storedProfile && storedProfile.image) {
+    profileImage.src = storedProfile.image;
+  }
+
   // Guardar datos
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -31,6 +36,7 @@ const defaultEmail = storedUserEmail || "usuario@ejemplo.com";
       lastName: lastNameInput.value,
       email: emailInput.value,
       phone: phoneInput.value,
+      image: profileImage.src
     };
     localStorage.setItem("userProfile", JSON.stringify(profileData));
     alert("Datos guardados correctamente.");
@@ -47,6 +53,7 @@ const defaultEmail = storedUserEmail || "usuario@ejemplo.com";
       const reader = new FileReader();
       reader.onload = (e) => {
         profileImage.src = e.target.result;
+        //Guardar imagen en localStorage
       };
       reader.readAsDataURL(file);
     }
