@@ -1,0 +1,111 @@
+body.profile-bg {
+  background: radial-gradient(circle at top left, #04134d, #000);
+  min-height: 100vh;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+.profile-container {
+  background: rgba(10, 20, 60, 0.75);
+  border: 1px solid rgba(0, 153, 255, 0.4);
+  border-radius: 15px;
+  padding: 25px;
+  width: 750px;
+  max-width: 95%;
+  box-shadow: 0 0 25px rgba(0, 153, 255, 0.5);
+}
+
+.profile-top {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.profile-photo-container {
+  position: relative;
+}
+
+.profile-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 15px;
+  object-fit: cover;
+  border: 2px solid #007bff;
+  box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+}
+
+.btn-photo {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.profile-section {
+  background: rgba(0, 0, 60, 0.6);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(0, 153, 255, 0.3);
+}
+
+.section-title {
+  color: #66b3ff;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.profile-field {
+  margin-bottom: 15px;
+}
+
+.profile-field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  flex: 1;
+  background: transparent;
+  border: 1px solid #005ce6;
+  border-radius: 6px 0 0 6px;
+  color: white;
+  padding: 6px 10px;
+  outline: none;
+}
+
+.input-group-text {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #005ce6;
+  border-left: none;
+  color: #66b3ff;
+  border-radius: 0 6px 6px 0;
+}
+
+.input-group input:focus {
+  border-color: #66b3ff;
+  box-shadow: 0 0 10px rgba(0, 153, 255, 0.4);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  box-shadow: 0 0 15px rgba(0, 153, 255, 0.4);
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #3399ff;
+  box-shadow: 0 0 25px rgba(0, 153, 255, 0.6);
+}
+
+input:read-only {
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: not-allowed;
+}
