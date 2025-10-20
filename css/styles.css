@@ -1,6 +1,7 @@
 .jumbotron,
 .card-body,
 .container,
+
 .site-header {
   font-family: 'Verdana', serif !important;
 }
@@ -193,13 +194,14 @@ a.custom-card:hover {
    Lo marcamos !important para ganarle a Verdana !important del proyecto. */
 .catalogo {
   font-family: Arial, sans-serif !important; 
-  background: linear-gradient(135deg, #000428, #004e92); /* Fondo degradado azul oscuro */
-  color: white; 
-  display: flex; /* Activa Flexbox, coloca los hijos en fila por defecto */
-  flex-direction: column;     /* base móvil apilado */
-  padding: 20px; /* Espacio interno (separación entre el borde del container y el contenido) */
-  gap: 20px; /* Espacio entre los elementos */
-  border-radius: 12px; /* Suaviza bordes sobre fondo general */
+  background: linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2));
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+  border-radius: 12px;
+  transition: background 0.4s ease, color 0.3s ease;
 }
 
 /* --- Panel izquierdo (Filtros) --- */
@@ -230,10 +232,37 @@ a.custom-card:hover {
 
 /* Tarjetas generadas por products.js */
 .catalogo .card {
-  background: rgba(0, 0, 30, 0.6);
-  border: 2px solid white;
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 12px;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+  transition: background 0.4s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
+.catalogo .filtros,
+.catalogo .ordenar {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+  transition: background 0.4s ease, color 0.3s ease;
+}
+
+.catalogo .filtros h2,
+.catalogo .ordenar h2 {
+  color: var(--primary);
+}
+
+.catalogo .filtros input[type="number"] {
+  background: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
 
 .catalogo .card .card-title ,
 .catalogo .card h3 {
@@ -265,6 +294,12 @@ a.custom-card:hover {
   margin: 8px 0;
   cursor: pointer; /* Cambia el cursor al pasar por encima */
 }
+
+.catalogo .filtros,
+.catalogo .ordenar {
+  background: var(--surface);
+}
+
 
 .paginacion{ /* Paginación de productos */
   display: flex;
@@ -442,13 +477,11 @@ input::placeholder {
 
 /* Estilos de la tarjeta principal del producto */
 .product-detail-card {
-    background-image: rgba(53, 25, 211, 0.9);
-    border: 2px solid #007bff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transition: background 0.4s ease, color 0.3s ease;
 }
 
 /* Estilos de los paneles dentro de la tarjeta */
@@ -562,11 +595,12 @@ input::placeholder {
 }
 
 .product-comments-section {
-    background-color: hsl(249, 86%, 25%);
-    border-top: 2px solid #f1f1f1;
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 0 0 8px 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  transition: background 0.4s ease, color 0.3s ease;
 }
 
 .product-comments-section h3 {
@@ -586,11 +620,12 @@ input::placeholder {
 }
 
 .comment-card {
-  background-color: #000850;
-  color: #fff;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  transition: background 0.4s ease, color 0.3s ease;
 }
 
 /* Cabecera con usuario y fecha */
@@ -640,14 +675,12 @@ input::placeholder {
 
 /* Estilos para el área de agregar un nuevo comentario */
 .add-comment-section {
-  color: #028CC8;
-  font-weight: bold;
-  background-color: #030934;
-  border: 2px solid #477BDD;
-  border-radius: 12px;
-  padding: 16px;
-  margin-top: 20px;
-  box-shadow: 0 0 20px -2px rgba(0, 150, 255, 0.7);
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  transition: background 0.4s ease, color 0.3s ease;
 }
 
 #comment-text {
@@ -679,3 +712,128 @@ input::placeholder {
   align-items: center;
 }
 
+/* ========= VARIABLES DE COLOR Y TIPOGRAFÍA ========= */
+:root {
+  /* Light */
+  --bg: #e6f3ff;
+  --bg-grad-1: #d9f0ff;
+  --bg-grad-2: #bfe2ff;
+  --card: rgba(255,255,255,0.78);
+  --surface: rgba(255,255,255,0.9);
+  --border: #cfe2f5;
+  --text: #12223d;
+  --muted: #476082;
+  --primary: #2f6bd8;     /* botón primario */
+  --primary-contrast: #ffffff;
+  --input-bg: rgba(255,255,255,0.9);
+  --shadow: 0 10px 30px rgba(0,0,0,.12);
+  --ring: 0 0 0 3px rgba(47,107,216,.25);
+}
+
+:root[data-theme="dark"] {
+  /* Dark */
+  --bg: #040a1f;
+  --bg-grad-1: #08163b;
+  --bg-grad-2: #00124a;
+  --card: rgba(16,24,48,0.66);
+  --surface: rgba(17,23,45,0.86);
+  --border: #223060;
+  --text: #e9f0ff;
+  --muted: #a9bcff;
+  --primary: #4c66ff;
+  --primary-contrast: #eaf2ff;
+  --input-bg: rgba(14,20,42,0.86);
+  --shadow: 0 14px 40px rgba(0,0,0,.45);
+  --ring: 0 0 0 3px rgba(76,102,255,.35);
+}
+
+
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(120% 120% at 50% -10%, var(--bg-grad-1), var(--bg-grad-2) 60%, var(--bg));
+  transition: background .45s ease, color .25s ease;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+}
+
+/* ========= COMPONENTES BÁSICOS ========= */
+.card, .panel, .box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+}
+
+
+.input, input, textarea, select {
+  background: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  outline: none;
+  transition: box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+.input:focus, input:focus, textarea:focus, select:focus {
+  border-color: var(--primary);
+  box-shadow: var(--ring);
+}
+
+/* Botón primario */
+.btn, .btn-primary, button.primary, .boton-primario {
+  background: var(--primary);
+  color: var(--primary-contrast);
+  border: none;
+  border-radius: 14px;
+  padding: 10px 18px;
+  font-weight: 600;
+  letter-spacing: .2px;
+  transition: transform .06s ease, filter .2s ease, opacity .2s ease;
+  box-shadow: 0 10px 20px rgba(47,107,216,.25);
+}
+.btn:hover, .btn-primary:hover, button.primary:hover, .boton-primario:hover {
+  filter: brightness(1.05);
+}
+.btn:active, .btn-primary:active, button.primary:active, .boton-primario:active {
+  transform: translateY(1px);
+}
+
+.theme-toggle{
+  position: fixed;
+  top: calc(16px + env(safe-area-inset-top));
+  right: calc(16px + env(safe-area-inset-right));
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+
+  /* que no quede detrás de nada*/
+  z-index: 1300;
+  pointer-events: auto;
+}
+
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon{
+  transition: opacity .2s ease, transform .2s ease;
+}
+:root[data-theme="dark"] .theme-toggle .icon-sun{ opacity: 0; transform: scale(.9); }
+:root[data-theme="dark"] .theme-toggle .icon-moon{ opacity: 1; transform: scale(1); }
+:root:not([data-theme="dark"]) .theme-toggle .icon-sun{ opacity: 1; transform: scale(1); }
+:root:not([data-theme="dark"]) .theme-toggle .icon-moon{ opacity: 0; transform: scale(.9); }
+
+/* ========= HELPER: bordes / títulos como en mockups ========= */
+h1,h2,h3 { color: var(--text); }
+.hr, hr { border-color: var(--border); opacity: .6; }
