@@ -13,6 +13,7 @@ function initProductInfoPage() {
   cargarInfoProducto(productId);
   cargarComentariosProducto(productId);
   configurarNuevoComentario(productId);
+  botoncomprar(productId);
 }
 
 // === Carga los datos del producto ===
@@ -236,6 +237,35 @@ function mostrarProductosRelacionados(relatedProductsArray) {
     });
 
     relatedContainer.appendChild(cardContainer);
+  });
+}
+
+// === Agregamos la funcionalidad del botón COMPRAR ===
+function botoncomprar(productId){
+  const buyBtn = document.getElementById("buy-btn")
+  if (!buyBtn) return;
+  buyBtn.addEventListener("click", () => {
+    fetch(PRODUCT_INFO_URL + productId + EXT_TYPE)
+      .then(response => response.json())
+      .then(productData => {
+        const productoSeleccionado = {
+          id: productId,
+          nombre: productData.name,
+          descripcion: productData.description,
+          categoria: productData.category,
+          imagen: productData.images[0],
+          costo: productData.cost,
+          moneda: productData.currency,
+          cantidad: 1,
+          subtotal: productData.cost * 1
+        };
+
+      // Guardamos en localStorage
+      localStorage.setItem("productoSeleccionado", JSON.stringify(productoSeleccionado));
+
+      // Redirigimos al carrito
+      window.location.href = "cart.html";
+    })
   });
 }
 
