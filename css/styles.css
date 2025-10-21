@@ -1,3 +1,4 @@
+
 .jumbotron,
 .card-body,
 .container,
@@ -770,7 +771,6 @@ body {
   backdrop-filter: blur(8px);
 }
 
-
 .input, input, textarea, select {
   background: var(--input-bg);
   color: var(--text);
@@ -837,3 +837,282 @@ body {
 /* ========= HELPER: bordes / títulos como en mockups ========= */
 h1,h2,h3 { color: var(--text); }
 .hr, hr { border-color: var(--border); opacity: .6; }
+
+/* navbar clara */
+:root[data-theme="light"] .navbar-dark {
+  background-color: #1565c0 !important;
+}
+
+:root[data-theme="light"] .nav-link {
+  color: #fff !important;
+}
+
+:root[data-theme="light"] .nav-link:hover {
+  text-decoration: underline;
+}
+
+/* === NAVBAR PERSONALIZADA PARA MODO OSCURO === */
+:root[data-theme="dark"] .navbar-dark {
+  background: rgba(5, 10, 25, 0.85); /* azul oscuro semitransparente */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 150, 255, 0.25);
+  box-shadow: 0 2px 10px rgba(0, 120, 255, 0.25);
+}
+
+:root[data-theme="dark"] .navbar-dark .nav-link {
+  color: #dce7ff !important;
+  transition: color 0.3s ease;
+}
+
+:root[data-theme="dark"] .navbar-dark .nav-link:hover,
+:root[data-theme="dark"] .navbar-dark .nav-link:focus {
+  color: #4da3ff !important;
+  text-shadow: 0 0 5px rgba(77, 163, 255, 0.7);
+}
+
+:root[data-theme="dark"] .navbar-dark .dropdown-menu {
+  background-color: #0b1a3d;
+  border: 1px solid rgba(0, 150, 255, 0.25);
+  box-shadow: 0 0 10px rgba(0, 120, 255, 0.3);
+}
+
+:root[data-theme="dark"] .navbar-dark .dropdown-item {
+  color: #dce7ff;
+}
+
+:root[data-theme="dark"] .navbar-dark .dropdown-item:hover {
+  background-color: rgba(0, 150, 255, 0.15);
+  color: #4da3ff;
+}
+
+:root[data-theme="light"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.6); /* leve transparencia */
+  border: 1px solid rgba(180, 200, 255, 0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+:root[data-theme="light"] .theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* --- Íconos más estéticos --- */
+.theme-toggle svg {
+  transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* Sol dorado con halo */
+:root[data-theme="light"] .theme-toggle .icon-sun {
+  filter: drop-shadow(0 0 6px rgba(255, 217, 59, 0.6));
+}
+
+/* Luna plateada con brillo */
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  filter: drop-shadow(0 0 6px rgba(220, 230, 255, 0.7));
+}
+
+/* Animación al pasar el mouse */
+.theme-toggle:hover svg {
+  transform: rotate(10deg) scale(1.05);
+}
+
+:root[data-theme="light"] body {
+  background: linear-gradient(180deg, #d8ecff 0%, #b2d7ff 100%) !important;
+  color: #0a2342 !important;
+  font-family: 'Raleway', sans-serif;
+}
+
+/* Tarjeta principal */
+:root[data-theme="light"] .product-detail-card {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border: 1px solid #a6ccf3 !important;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 100, 200, 0.15) !important;
+  color: #0a2342 !important;
+}
+
+/* Panel izquierdo (galería) */
+:root[data-theme="light"] .product-left-panel {
+  background: rgba(240, 248, 255, 0.9) !important;
+  border: 1px solid #bcd9ff !important;
+  border-radius: 10px !important;
+  color: #0a2342 !important;
+  box-shadow: 0 6px 15px rgba(0, 90, 200, 0.15);
+}
+
+/* Imagen principal y miniaturas */
+:root[data-theme="light"] #main-product-image {
+  border-radius: 10px;
+  border: 1px solid #a6ccf3;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 80, 180, 0.15);
+}
+:root[data-theme="light"] .thumbnail-gallery img {
+  border: 1px solid #a6ccf3;
+  border-radius: 6px;
+}
+:root[data-theme="light"] .thumbnail-gallery img:hover {
+  border-color: #2f6bd8;
+  transform: scale(1.05);
+}
+
+/* Panel derecho */
+:root[data-theme="light"] .product-right-panel {
+  background: rgba(255,255,255,0.7);
+  border-radius: 12px;
+}
+
+/* Título y textos */
+:root[data-theme="light"] .product-title {
+  color: #007bff !important;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+:root[data-theme="light"] .product-description-text,
+:root[data-theme="light"] .product-category-text {
+  color: #0a2342 !important;
+}
+
+/* Calificaciones */
+:root[data-theme="light"] .product-comments-section {
+  background: rgba(230, 243, 255, 0.9) !important;
+  border: 1px solid #a6ccf3 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 6px 20px rgba(0, 100, 200, 0.12);
+}
+:root[data-theme="light"] .product-comments-section h3 {
+  color: #007bff !important;
+  text-align: center;
+}
+
+/* Cada comentario */
+:root[data-theme="light"] .comments-box {
+  background: #eaf4ff !important;
+  border: 1px solid #bcd9ff !important;
+  border-radius: 10px;
+  color: #0a2342 !important;
+}
+
+/* Área de comentar */
+:root[data-theme="light"] .add-comment-section {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid #bcd9ff !important;
+  border-radius: 12px;
+  color: #0a2342 !important;
+}
+:root[data-theme="light"] #comment-text {
+  background-color: #f5faff !important;
+  color: #0a2342 !important;
+  border: 1px solid #bcd9ff !important;
+}
+:root[data-theme="light"] #comment-text::placeholder {
+  color: #777 !important;
+}
+
+/* Botones */
+:root[data-theme="light"] #buy-btn,
+:root[data-theme="light"] #enviar-comentario,
+:root[data-theme="light"] .btn-primary {
+  background-color: #2f6bd8 !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 6px 16px rgba(47, 107, 216, 0.25);
+  border: none !important;
+}
+:root[data-theme="light"] #buy-btn:hover,
+:root[data-theme="light"] #enviar-comentario:hover,
+:root[data-theme="light"] .btn-primary:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+/* Productos relacionados */
+:root[data-theme="light"] .related-products {
+  background: rgba(255,255,255,0.9) !important;
+  border: 1px solid #a6ccf3 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 6px 20px rgba(0, 100, 200, 0.15);
+}
+:root[data-theme="light"] .related-products h3 {
+  color: #007bff !important;
+  text-align: center;
+}
+
+/* Navbar */
+:root[data-theme="light"] .navbar-dark {
+  background: rgba(20, 70, 140, 0.95) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+:root[data-theme="light"] .nav-link {
+  color: #fff !important;
+}
+
+/* Títulos */
+:root[data-theme="light"] h2, 
+:root[data-theme="light"] h3, 
+:root[data-theme="light"] h4 {
+  color: #0a2342 !important;
+}
+
+/* Modo claro — línea negra fina */
+:root[data-theme="light"] hr,
+:root[data-theme="light"] .product-hr,
+:root[data-theme="light"] .section-divider {
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.65);
+  margin: 1.2rem 0;
+  opacity: 1;
+}
+
+/* Modo claro */
+:root[data-theme="light"] .comments-box,
+:root[data-theme="light"] .add-comment-section {
+  border: 2px solid #7ab0f7 !important; /* azul más fuerte */
+  box-shadow: 0 4px 12px rgba(0, 100, 200, 0.15);
+}
+
+:root[data-theme="light"] .comments-box .comment {
+  border: 2px solid #9ac5ff !important;
+  background: #f1f7ff !important;
+}
+
+/* Cuadro para escribir comentario */
+:root[data-theme="light"] #comment-text {
+  border: 2px solid #7ab0f7 !important;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0a2342;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+:root[data-theme="light"] #comment-text:focus {
+  border-color: #2f6bd8 !important;
+  box-shadow: 0 0 8px rgba(47,107,216,0.3);
+}
+
+/* MODO CLARO */
+:root[data-theme="light"] .product-stats span,
+:root[data-theme="light"] .product-data span,
+:root[data-theme="light"] .product-info-data span,
+:root[data-theme="light"] .product-left-panel span,
+:root[data-theme="light"] .product-detail-card span {
+  color: #0a2342 !important;   /* azul oscuro legible */
+  font-weight: 500;
+}
+
+:root[data-theme="light"] .product-stats b,
+:root[data-theme="light"] .product-stats strong {
+  color: #004080 !important;   /* azul más intenso para el texto "Vendidos:" */
+  font-weight: 700;
+}
+
+/* Si el número o texto del valor está en un <p> o texto plano */
+:root[data-theme="light"] .product-stats p,
+:root[data-theme="light"] .product-data p,
+:root[data-theme="light"] .product-info-data p {
+  color: #0a2342 !important;
+  font-weight: 500;
+}
