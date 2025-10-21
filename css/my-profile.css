@@ -1,4 +1,4 @@
-body.profile-bg {
+ body.profile-bg {
   background: radial-gradient(circle at top left, #04134d, #000);
   min-height: 100vh;
   color: white;
@@ -108,4 +108,162 @@ body.profile-bg {
 input:read-only {
   background-color: rgba(255, 255, 255, 0.05);
   cursor: not-allowed;
+} 
+
+.theme-toggle{
+  position: fixed;
+  top: calc(16px + env(safe-area-inset-top));
+  right: calc(16px + env(safe-area-inset-right));
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+
+  /* que no quede detrás de nada*/
+  z-index: 1300;
+  pointer-events: auto;
+}
+
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon{
+  transition: opacity .2s ease, transform .2s ease;
+}
+:root[data-theme="dark"] .theme-toggle .icon-sun{ opacity: 0; transform: scale(.9); }
+:root[data-theme="dark"] .theme-toggle .icon-moon{ opacity: 1; transform: scale(1); }
+:root:not([data-theme="dark"]) .theme-toggle .icon-sun{ opacity: 1; transform: scale(1); }
+:root:not([data-theme="dark"]) .theme-toggle .icon-moon{ opacity: 0; transform: scale(.9); }
+
+/* ========= HELPER: bordes / títulos como en mockups ========= */
+h1,h2,h3 { color: var(--text); }
+.hr, hr { border-color: var(--border); opacity: .6; }
+
+
+/* === MODO CLARO === */
+:root[data-theme="light"] body.profile-bg {
+  background: radial-gradient(120% 120% at 50% -10%, #e3f2fd, #bbdefb 60%, #90caf9);
+  color: #0a2342;
+}
+
+/* contenedor principal */
+:root[data-theme="light"] .profile-container {
+  background: #ffffff;
+  border: 1px solid #d0d7e2;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  color: #0a2342;
+}
+
+/* secciones internas */
+:root[data-theme="light"] .profile-section {
+  background: #f4f8ff;
+  border: 1px solid #cfd8dc;
+  color: #0a2342;
+}
+
+/* títulos */
+:root[data-theme="light"] .section-title {
+  color: #1565c0;
+}
+
+/* inputs */
+:root[data-theme="light"] input {
+  background-color: #ffffff;
+  border: 1px solid #cfd8dc;
+  color: #0a2342;
+}
+
+:root[data-theme="light"] input:focus {
+  border-color: #2196f3;
+  box-shadow: 0 0 5px rgba(33, 150, 243, 0.4);
+}
+
+/* íconos del lápiz */
+:root[data-theme="light"] .input-group-text {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #cfd8dc;
+}
+
+/* botón guardar */
+:root[data-theme="light"] .btn-primary {
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 10px rgba(33, 150, 243, 0.4);
+}
+
+:root[data-theme="light"] .btn-primary:hover {
+  background-color: #1e88e5;
+  box-shadow: 0 4px 14px rgba(33, 150, 243, 0.5);
+}
+
+/* botón de cámara */
+:root[data-theme="light"] .btn-photo {
+  background: #f0f4ff;
+  color: #0a2342;
+  border: 1px solid #cfd8dc;
+}
+
+:root[data-theme="light"] .btn-photo:hover {
+  background: #1565c0;
+  color: #fff;
+}
+
+/* navbar clara */
+:root[data-theme="light"] .navbar-dark {
+  background-color: #1565c0 !important;
+}
+
+:root[data-theme="light"] .nav-link {
+  color: #fff !important;
+}
+
+:root[data-theme="light"] .nav-link:hover {
+  text-decoration: underline;
+}
+
+/* footer */
+:root[data-theme="light"] footer {
+  color: #0a2342;
+  background: #e3f2fd;
+}
+
+/* === NAVBAR PERSONALIZADA PARA MODO OSCURO === */
+:root[data-theme="dark"] .navbar-dark {
+  background: rgba(5, 10, 25, 0.85); /* azul oscuro semitransparente */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 150, 255, 0.25);
+  box-shadow: 0 2px 10px rgba(0, 120, 255, 0.25);
+}
+
+:root[data-theme="dark"] .navbar-dark .nav-link {
+  color: #dce7ff !important;
+  transition: color 0.3s ease;
+}
+
+:root[data-theme="dark"] .navbar-dark .nav-link:hover,
+:root[data-theme="dark"] .navbar-dark .nav-link:focus {
+  color: #4da3ff !important;
+  text-shadow: 0 0 5px rgba(77, 163, 255, 0.7);
+}
+
+:root[data-theme="dark"] .navbar-dark .dropdown-menu {
+  background-color: #0b1a3d;
+  border: 1px solid rgba(0, 150, 255, 0.25);
+  box-shadow: 0 0 10px rgba(0, 120, 255, 0.3);
+}
+
+:root[data-theme="dark"] .navbar-dark .dropdown-item {
+  color: #dce7ff;
+}
+
+:root[data-theme="dark"] .navbar-dark .dropdown-item:hover {
+  background-color: rgba(0, 150, 255, 0.15);
+  color: #4da3ff;
 }
