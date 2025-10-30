@@ -69,24 +69,48 @@
   </nav>
 
   <!-- Main Content -->
-
-  <div class="cart-container container bg-white w-60">
-    <div class="row">
-      <div class="col-1">
-        
-            <a href="#" class="back-arrow">←</a>
-      </div>
-      <div class="col-11 ">
-            <h1>Carrito de Compras</h1>
+<div class="container">
+<header>
+        <h1>🛒 Carrito de Compras</h1>
+    </header>
+    <main>
+        <div id="cart-container">
+            <p id="empty-cart-message" style="display:none; text-align:center;">
+                No hay ningún producto cargado en el carrito.
+            </p>
+        </div>
+    </main>
+    
+    <template id="cart-item-template">
+        <div class="cart-item-card">
+            <div class="item-header">
+                <a href="#" class="back-link">← Carrito de Compras</a>
             </div>
-        
-        
-    </div>
-        <div id="cart-content" class="cart-content">
+            <div class="item-details">
+                <img class="item-image" src="" alt="Imagen del producto">
+                <div class="item-info">
+                    <p class="item-name"></p>
+                    <p>Precio Unidad: <span class="item-unit-cost"></span></p>
+                </div>
             </div>
-
+            <div class="item-quantity-control">
+                <button class="quantity-btn minus-btn" data-id=""></button>
+                <input type="number" class="item-count" value="1" min="1" readonly>
+                <button class="quantity-btn plus-btn" data-id=""></button>
+            </div>
+            <div class="item-summary">
+                <p>Pedido</p>
+                <p>Subtotal (<span class="item-count-summary"></span> producto/s): <span class="item-subtotal"></span></p>
+                <p>Envío: USD $0</p>
+                <p>Total: <span class="item-total"></span></p>
+            </div>
+            <div class="item-actions">
+                <button class="action-btn finish-btn">Finalizar Compra</button>
+                <button class="action-btn continue-btn">Continuar Comprando</button>
+            </div>
+        </div>
+    </template>
     </div>
-    <!-- fin ontenedor-->
 
 <!-- Footer -->
 
