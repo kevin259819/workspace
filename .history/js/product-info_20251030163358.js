@@ -240,20 +240,10 @@ function mostrarProductosRelacionados(relatedProductsArray) {
   });
 }
 
-// === (NO TOCAMOS estas funciones, pero la lógica más eficiente es no usarlas aquí) ===
-// function esJSONValido(...)
-// function parsearJSONSeguro(...)
-// ---------------------------------------------------------------------------------
-
-// DECLARACIÓN GLOBAL (solo para referencia inicial, la carga real viene de localStorage)
-let productoAlCarrito = []; 
-
-
 // === Agregamos la funcionalidad del botón COMPRAR ===
 function botoncomprar(productId){
-    const buyBtn = document.getElementById("buy-btn");
+  const buyBtn = document.getElementById("buy-btn")
     if (!buyBtn) return;
-    
     buyBtn.addEventListener("click", () => {
         fetch(PRODUCT_INFO_URL + productId + EXT_TYPE)
         .then(response => response.json())
@@ -268,41 +258,18 @@ function botoncomprar(productId){
                 moneda: productData.currency,
                 cantidad: 1,
                 subtotal: productData.cost * 1
-            };
-
-            // 1. OBTENER EL CARRITO EXISTENTE DE LOCALSTORAGE
-            const storedCart = localStorage.getItem("productoAlCarrito");
-
-            // 2. PARSEAR DE FORMA SEGURA (VALIDACIÓN EMPÍRICA)
-            if (storedCart) {
-                try {
-                    // Intenta convertir la cadena del localStorage en un array.
-                    productoAlCarrito = JSON.parse(storedCart);
-                } catch (error) {
-                    // Si falla el parseo, la REALIDAD es que la data está corrupta.
-                    // Reiniciamos el carrito a un array vacío [] para evitar fallos.
-                    console.error("Error al cargar carrito. Se inicializa vacío.");
-                    productoAlCarrito = [];
-                }
-            } else {
-                // Si no hay datos, el carrito ya es [] por la declaración inicial.
-                productoAlCarrito = [];
-            }
+          productoAlCarrito = []
+          productoAlCarrito.push(productoSeleccionado);
+        };
             
-            // 3. AGREGAR el producto seleccionado
-            productoAlCarrito.push(productoSeleccionado);
-            
-            // 4. Guardamos en localStorage (Se convierte el array actualizado a texto)
+      // Guardamos en localStorage
             localStorage.setItem("productoAlCarrito", JSON.stringify(productoAlCarrito));
 
-            // 5. Redirigimos al carrito
+      // Redirigimos al carrito
             window.location.href = "cart.html";
-            
-        }); // <-- CIERRE del .then(productData...)
-        
-    }); // <-- CIERRE del addEventListener(...)
-} // <-- CIERRE de la función botoncomprar
-
+    })
+  });
+}
 
 // === Inicializa cuando se carga el documento ===
 document.addEventListener('DOMContentLoaded', initProductInfoPage);
