@@ -303,6 +303,5 @@ function botoncomprar(productId){
     }); // <-- CIERRE del addEventListener(...)
 } // <-- CIERRE de la función botoncomprar
 
-
 // === Inicializa cuando se carga el documento ===
 document.addEventListener('DOMContentLoaded', initProductInfoPage);

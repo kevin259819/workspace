@@ -62,7 +62,7 @@ addEventListener("DOMContentLoaded", () => {
 
     // --- FUNCIONALIDAD DE LOS BOTONES +, -, Y CAMBIO DE INPUT ---
     function actualizarVistaYStorage() {
-        localStorage.setItem("productoAlCarrito", JSON.stringify(carritoDeCompras));
+        saveCartArray(carritoDeCompras);
     }
 
     function actualizarProducto(id, nuevaCantidad) {
@@ -119,11 +119,33 @@ addEventListener("DOMContentLoaded", () => {
             // Filtrar el carrito, dejando afuera el producto clickeado
             carritoDeCompras = carritoDeCompras.filter(p => p.id != id);
 
-            // Actualizar localStorage
-            localStorage.setItem("productoAlCarrito", JSON.stringify(carritoDeCompras));
+            // Actualizar storage y refrescar badge
+            saveCartArray(carritoDeCompras);
 
             // Eliminar el producto visualmente del DOM
             e.currentTarget.closest(".productoEnCarrito").remove();
         });
     });
 }); // Cierre del DOMContentLoaded
+
+// === Utils carrito (cart) ===
+function getCartArray() {
+  try {
+    const raw = localStorage.getItem("productoAlCarrito");
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveCartArray(arr) {
+  localStorage.setItem("productoAlCarrito", JSON.stringify(arr));
+  if (window.updateCartBadge) window.updateCartBadge();
+}
+
+// Por si querés refrescar el badge al entrar a cart.html
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.updateCartBadge) window.updateCartBadge();
+});
