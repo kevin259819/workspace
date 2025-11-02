@@ -240,9 +240,7 @@ function mostrarProductosRelacionados(relatedProductsArray) {
   });
 }
 
-// === (NO TOCAMOS estas funciones, pero la lógica más eficiente es no usarlas aquí) ===
-// function esJSONValido(...)
-// function parsearJSONSeguro(...)
+
 // ---------------------------------------------------------------------------------
 
 // DECLARACIÓN GLOBAL (solo para referencia inicial, la carga real viene de localStorage)
@@ -273,12 +271,12 @@ function botoncomprar(productId){
             // 1. OBTENER EL CARRITO EXISTENTE DE LOCALSTORAGE
             const storedCart = localStorage.getItem("productoAlCarrito");
 
-            // 2. PARSEAR DE FORMA SEGURA (VALIDACIÓN EMPÍRICA)
+            // 2. PARSEAR DE FORMA SEGURA 
             if (storedCart) {
                 try {
                     // Intenta convertir la cadena del localStorage en un array.
                     productoAlCarrito = JSON.parse(storedCart);
-                } catch (error) {
+               } catch (error) {
                     // Si falla el parseo, la REALIDAD es que la data está corrupta.
                     // Reiniciamos el carrito a un array vacío [] para evitar fallos.
                     console.error("Error al cargar carrito. Se inicializa vacío.");
@@ -306,3 +304,4 @@ function botoncomprar(productId){
 
 // === Inicializa cuando se carga el documento ===
 document.addEventListener('DOMContentLoaded', initProductInfoPage);
+

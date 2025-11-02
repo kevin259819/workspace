@@ -1183,3 +1183,33 @@ h1,h2,h3 { color: var(--text); }
   margin-top: 5px;
   text-align: center;
 }
+
+#botonFinalizar{
+  background-color: rgba(0, 123, 255, 0,0);
+  border-radius: 8px ;
+  border: solid 2px rgb(255, 255, 255);
+  box-shadow: 0 6px 16px rgba(249, 250, 252, 0.7);
+  font-weight: bolder;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#botonContinuar{
+  background-color: rgba(0, 123, 255, 0,0);
+  border-radius: 8px ;
+  border: solid 2px rgb(4, 95, 168);
+  box-shadow: 0 6px 16px rgba(104, 211, 243, 0.7);
+  font-weight: bolder;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#volverAlInicio{
+  background-color: rgba(0, 123, 255, 0,0);
+  border-radius: 8px ;
+  border: solid 2px rgb(255, 255, 255);
+  box-shadow: 0 6px 16px rgba(249, 250, 252, 0.7);
+  font-weight: bolder;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

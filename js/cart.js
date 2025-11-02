@@ -3,6 +3,17 @@ addEventListener("DOMContentLoaded", () => {
     let carritoContenedor = document.getElementById("CarritoConteiner");
 
     let carritoDeCompras = JSON.parse(localStorage.getItem("productoAlCarrito")) || [];
+    
+    if (carritoDeCompras.length === 0) {
+        let contenedorVacio = document.createElement("div");
+        contenedorVacio.className = "carritoVacio";
+        contenedorVacio.innerHTML = `
+           <div > <h2>Tu carrito está vacío</h2>
+            <p>Agrega productos para comenzar a comprar.</p>
+            <a href="index.html" id"volverAlInicio" class="btn btn-primary justify-content-center">Volver al inicio</a></div>
+        `;
+        carritoContenedor.appendChild(contenedorVacio);
+    } else {
 
     for (let producto of carritoDeCompras) {
         let contenedor = document.createElement("div");
@@ -65,6 +76,15 @@ addEventListener("DOMContentLoaded", () => {
         `;
         document.getElementById("CarritoConteiner").appendChild(contenedor);
     }
-
+    let contenedorFinalizarCompra = document.createElement("div");
+        contenedorFinalizarCompra.className = "botonesfinalizarCompra";
+        contenedorFinalizarCompra.innerHTML = `
+            <dib class="d-flex justify-content-center">
+<button type="button" class="btn btn-primary btn-lg justify-content-center" id="botonFinalizar">Finalzar Compra</button>
+<button type="button" class="btn btn-secondary btn-lg justify-content-center bg-white text-primary" id="botonContinuar">Continuar Compra</button>
+</dib>
+        `;
+        carritoContenedor.appendChild(contenedorFinalizarCompra);
+}
 
 });// Cierre del DOMContentLoaded
