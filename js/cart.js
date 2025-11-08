@@ -3,11 +3,21 @@ addEventListener("DOMContentLoaded", () => {
     let carritoContenedor = document.getElementById("CarritoConteiner");
     let carritoDeCompras = JSON.parse(localStorage.getItem("productoAlCarrito")) || [];
 
+    if (carritoDeCompras.length === 0) {
+        let contenedorVacio = document.createElement("div");
+        contenedorVacio.className = "carritoVacio";
+        contenedorVacio.innerHTML = `
+           <div > <h2>Tu carrito está vacío</h2>
+            <p>Agrega productos para comenzar a comprar.</p>
+            <a href="index.html" id"volverAlInicio" class="btn btn-primary justify-content-center">Volver al inicio</a></div>
+        `;
+        carritoContenedor.appendChild(contenedorVacio);
+    } else {
+
     for (let producto of carritoDeCompras) {
         let contenedor = document.createElement("div");
         contenedor.className = "productoEnCarrito row";
         contenedor.innerHTML = `
-
             <div class="row">
                 <div class="col-1">
                     <button class="btnEliminar" id="btnVolver">
@@ -59,6 +69,8 @@ addEventListener("DOMContentLoaded", () => {
 
         carritoContenedor.appendChild(contenedor);
     }
+
+}
 
     // --- FUNCIONALIDAD DE LOS BOTONES +, -, Y CAMBIO DE INPUT ---
     function actualizarVistaYStorage() {

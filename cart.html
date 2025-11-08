@@ -70,13 +70,153 @@
 
   <!-- Contenido principal -->
 
-<div class="container" id="CarritoConteiner">
-</div>
+  <div class="container d-flex">
+    <div class="row">
+      <div class="col" id="CarritoConteiner">
+      </div>
+      <div class="col" id="CarritoTotal">
 
-<dib class="d-flex justify-content-center">
-<button type="button" class="btn btn-primary btn-lg justify-content-center">Finalzar Compra</button>
-<button type="button" class="btn btn-secondary btn-lg justify-content-center bg-white text-primary">Continuar Compra</button>
-</dib>
+        <!-- Precio y envio total -->
+
+        <div class="row justify-text-center d-flex flex-row align-items-center">
+          <div class="col justify-content-center d d-flex flex-column align-items-center">
+            <h3 class="justify-text-center">Seleccione el tipo de envío:</h3>
+            <br>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+              <circle cx="8" cy="8" r="8"/>
+            </svg> 
+            <h5>Premium:</h5>
+            <h5> 2 a 5 días de entrga - 15% del valor total</h5>
+          </div>
+        </div>
+
+                <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16">
+              <circle cx="8" cy="8" r="8"/>
+            </svg> 
+            <h5>Standard </h5>
+            <h5> 12 a 15 días de entrga - 5% del valor total</h5>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex flex-column align-items-center">
+            <br>
+            <h3>Dirección de envío:</h3>
+            <br>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex  align-items-center -center">
+            <h4>Departamento</h4><input type="text" id="departamento-envio" size="40" name="departamento-envio"></input>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex align-items-center">
+            <h4>Localidad</h4><input type="text" id="localidad-envio" size="40" name="localidad-envio"></input>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex align-items-center">
+            <h4>Calle</h4><input type="text" id="calle-envio" size="40" name="calle-envio"></input>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex align-items-center">
+            <h4>Número</h4><input type="text" id="numero-envio" size="40" name="numero-envio"></input>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex align-items-center">
+            <h4>Esquina</h4><input type="text" id="esquina-envio" size="40"
+             name="esquina-envio"></input>
+            <br>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex flex-column align-items-center">
+            <br>
+            <h3>Métodos de pago</h3>
+            <br>
+            <h4>Tarjeta de crédito</h4>
+            <div class="d-flex  align-items-center">
+              <img src="img/western union.png" alt="Tarjetas de crédito y débito" width="75">
+              <img src="img/american expres.png" alt="Tarjetas de crédito y débito" width="75">
+              <img src="img/cirrus.png" alt="Tarjetas de crédito y débito" width="75">
+              <img src="img/delta.png" alt="Tarjetas de crédito y débito" width="75">
+              <img src="img/visa.png" alt="Tarjetas de crédito y débito" width="75">
+              <img src="img/discover.png" alt="Tarjetas de crédito y débito" width="7">
+              <img src="img/maestro.png" alt="Tarjetas de crédito y débito" width="75">
+              <img src="img/masterard.png" alt="Tarjetas de crédito y débito" width="75">
+            </div>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex flex-column align-items-center">
+            <br>
+            <h4>Transferencia bancaria</h4>
+            <br>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex flex-column align-items-center">
+            <h2>Costos</h2>
+            <br>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex flex-column align-items-center">
+            <h4>Subtotal:</h4>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex flex-column align-items-center">
+            <h4>Costo de envío:</h4>
+            <br>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex flex-column align-items-center">
+            <h4>Costo Final</h4>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col d-flex flex-column align-items-center">
+            <h4>$x</h4>
+            <br>
+          </div>
+        </div>
+
+        <div class="row d-flex flex-row align-items-center mb-3">
+          <div class="col d-flex flex-column align-items-center">
+            <button type="button" class="btn btn-primary btn-lg justify-content-center">Finalizar Compra</button>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
 
 <!-- Footer -->
 
