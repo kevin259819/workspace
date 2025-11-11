@@ -3,6 +3,10 @@ addEventListener("DOMContentLoaded", () => {
     let carritoContenedor = document.getElementById("CarritoConteiner");
     let carritoDeCompras = JSON.parse(localStorage.getItem("productoAlCarrito")) || [];
 
+    const sp = document.getElementById('shippingPremium');
+    if (sp && !document.querySelector('input[name="shipping"]:checked')) sp.checked = true;
+    actualizarPanelCostos();
+
     if (carritoDeCompras.length === 0) {
         let contenedorVacio = document.createElement("div");
         contenedorVacio.className = "carritoVacio";
@@ -40,8 +44,6 @@ addEventListener("DOMContentLoaded", () => {
                         <h3 class="tituloCarrito">${producto.nombre}</h3>
                         <p class="precioCarrito">Precio: ${producto.moneda} ${producto.costo}</p>
                         <p class="cantidad">Cantidad: <span class="valorCantidad">${producto.cantidad}</span> Unds.</p>
-                        <p class="subtotal">Subtotal: ${producto.moneda} ${producto.costo * producto.cantidad}</p>
-                        <p>Envio: ${producto.moneda} 0</p>
                         <h4 class="total">Total: ${producto.moneda} ${producto.costo * producto.cantidad}</h4>
                     </div>
                 </div>  
@@ -86,10 +88,12 @@ addEventListener("DOMContentLoaded", () => {
         // Actualizar DOM
         const contenedor = document.querySelector(`.inputCantidad[data-id="${id}"]`).closest(".productoEnCarrito");
         contenedor.querySelector(".valorCantidad").textContent = producto.cantidad;
-        contenedor.querySelector(".subtotal").textContent = `Subtotal: ${producto.moneda} ${producto.costo * producto.cantidad}`;
-        contenedor.querySelector(".total").textContent = `Total: ${producto.moneda} ${producto.costo * producto.cantidad}`;
-
+        const totEl = contenedor.querySelector(".total");
+        if(totEl){
+            totEl.textContent = `Total: ${producto.moneda} ${producto.costo * producto.cantidad}`;
+        }
         actualizarVistaYStorage();
+        actualizarPanelCostos();
     }
 
     // Botón +
@@ -136,8 +140,78 @@ addEventListener("DOMContentLoaded", () => {
 
             // Eliminar el producto visualmente del DOM
             e.currentTarget.closest(".productoEnCarrito").remove();
+            actualizarPanelCostos();
         });
     });
+    function getShippingRate() {
+        var r = document.querySelector('input[name="shipping"]:checked');
+        if (!r) return 0.15;                  // default: premium
+        if (r.value === 'express')  return 0.07;
+        if (r.value === 'standard') return 0.05;
+        return 0.15;                          // premium
+    }
+    // Normaliza códigos
+    function normCur(c) {
+        return String(c || 'USD').toUpperCase().replace(/\s/g, '');
+    }
+
+    // Convierte un monto a USD (tasa fija: 40 UYU = 1 USD)
+    function toUSD(amount, currency) {
+        var cur = normCur(currency);
+        if (cur === 'USD' || cur === 'U$S') return amount;
+        if (cur === 'UYU' || cur === '$U')  return amount / 40;
+        return amount; // fallback: si es otra moneda, lo dejamos igual
+    }
+
+    function subtotalGeneral() {
+    let total = 0;
+    for (let i = 0; i < carritoDeCompras.length; i++) {
+        let p = carritoDeCompras[i];
+        let precio = parseFloat(p.costo) || 0;
+        let cantidad = parseInt(p.cantidad, 10) || 1;
+        total += toUSD(precio * cantidad, p.moneda);
+    }
+        return total;
+    }
+    function actualizarPanelCostos() {
+        let sub = subtotalGeneral();
+        let rate = getShippingRate();
+        let envio = sub * rate;
+        let total = sub + envio;
+        let moneda = carritoDeCompras.length ? (carritoDeCompras[0].moneda || 'USD') : 'USD';
+
+        let subEl = document.getElementById('subtotalAmount');
+        let envEl = document.getElementById('shippingAmount');
+        let totEl = document.getElementById('totalAmount');
+
+        if (subEl) subEl.textContent = 'USD ' + sub.toFixed(2);
+        if (envEl) envEl.textContent = 'USD ' + envio.toFixed(2);
+        if (totEl) totEl.textContent = 'USD ' + total.toFixed(2);
+
+        // deshabilitar radios si no hay productos
+        var disabled = (sub === 0);
+        var radios = document.querySelectorAll('input[name="shipping"]');
+        for (var i = 0; i < radios.length; i++) { radios[i].disabled = disabled; }
+    }
+    document.getElementById('shippingPremium').onchange = actualizarPanelCostos;
+    document.getElementById('shippingExpress').onchange = actualizarPanelCostos;
+    document.getElementById('shippingStandard').onchange = actualizarPanelCostos;
+    // Recalcula cuando se cambia cualquier radio del grupo "shipping"
+    const shippingBox = document.getElementById('shipping-options');
+        if (shippingBox) {
+        shippingBox.addEventListener('change', function (e) {
+            if (e.target && e.target.name === 'shipping') {
+            actualizarPanelCostos();
+            }
+        });
+        } else {
+        // Respaldo por si el contenedor no existe o cambia el markup
+        document.addEventListener('change', function (e) {
+            if (e.target && e.target.name === 'shipping') {
+            actualizarPanelCostos();
+            }
+        }, true);
+    }
 }); // Cierre del DOMContentLoaded
 
 // === Utils carrito (cart) ===
