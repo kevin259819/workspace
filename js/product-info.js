@@ -267,6 +267,7 @@ function botoncomprar(productId){
                 costo: productData.cost,
                 moneda: productData.currency,
                 cantidad: 1,
+                count: 1,
                 subtotal: productData.cost * 1
             };
 

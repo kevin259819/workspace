@@ -149,19 +149,57 @@
           <div class="col d-flex flex-column align-items-center">
             <br>
             <h3>Métodos de pago</h3>
-            <br>
-            <div class="d-flex  align-items-center">
-              <img src="img/western union.png" alt="Tarjetas de crédito y débito" width="75">
-              <img src="img/american expres.png" alt="Tarjetas de crédito y débito" width="75">
-              <img src="img/cirrus.png" alt="Tarjetas de crédito y débito" width="75">
-              <img src="img/delta.png" alt="Tarjetas de crédito y débito" width="75">
-              <img src="img/visa.png" alt="Tarjetas de crédito y débito" width="75">
-              <img src="img/discover.png" alt="Tarjetas de crédito y débito" width="7">
-              <img src="img/maestro.png" alt="Tarjetas de crédito y débito" width="75">
-              <img src="img/masterard.png" alt="Tarjetas de crédito y débito" width="75">
-            </div>
-          </div>
-        </div>
+<br>
+
+<div class="mb-3">
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="metodoPago" id="pagoTarjeta" value="tarjeta">
+    <label class="form-check-label" for="pagoTarjeta">
+      Tarjeta de crédito / débito
+      <img src="img/visa.png" width="40"> <img src="img/masterard.png" width="40">
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="metodoPago" id="pagoTransferencia" value="transferencia">
+    <label class="form-check-label" for="pagoTransferencia">
+      Transferencia bancaria
+      <img src="img/western union.png" width="40"> <img src="img/cirrus.png" width="40">
+    </label>
+  </div>
+</div>
+
+<!-- Campos para cada método -->
+<div id="tarjetaInfo" style="display:none;">
+  <div class="mb-3">
+    <label for="numeroTarjeta" class="form-label">Número de tarjeta</label>
+    <input type="text" class="form-control" id="numTarjeta" placeholder="XXXX XXXX XXXX XXXX">
+  </div>
+  <div class="mb-3">
+    <label for="nombreTitular" class="form-label">Nombre del titular</label>
+    <input type="text" class="form-control" id="nombreTitular" placeholder="Como aparece en la tarjeta">
+  </div>
+  <div class="row">
+    <div class="col">
+      <label for="vencimiento" class="form-label">Vencimiento</label>
+      <input type="text" class="form-control" id="vencimiento" placeholder="MM/AA">
+    </div>
+    <div class="col">
+      <label for="cvv" class="form-label">CVV</label>
+      <input type="text" class="form-control" id="cvv" placeholder="123">
+    </div>
+  </div>
+</div>
+
+<div id="transferenciaInfo" style="display:none;">
+  <div class="mb-3">
+    <label for="numeroCuenta" class="form-label">Número de cuenta</label>
+    <input type="text" class="form-control" id="numeroCuenta" placeholder="0000-0000-0000">
+  </div>
+  <div class="mb-3">
+    <label for="banco" class="form-label">Banco</label>
+    <input type="text" class="form-control" id="banco" placeholder="Ej.: BROU, Itaú, Santander...">
+  </div>
+</div>
 
        <div class="card">
         <div class="card-body">
@@ -189,7 +227,7 @@
 
 
 
-
+      
       </div>
     </div>
   </div>
@@ -223,5 +261,17 @@
   <script src="js/cart.js"></script>
   <script src="js/navbar.js"></script>
   <script src="js/temas.js"></script>
+    <script>
+  // Mostrar/ocultar campos según el método seleccionado
+  document.querySelectorAll('input[name="metodoPago"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      const esTarjeta = this.value === "tarjeta";
+      document.getElementById("tarjetaInfo").style.display = esTarjeta ? "block" : "none";
+      document.getElementById("transferenciaInfo").style.display = !esTarjeta ? "block" : "none";
+    });
+  });
+
+  
+</script>
 </body>
 </html>
