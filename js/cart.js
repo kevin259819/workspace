@@ -235,3 +235,76 @@ function saveCartArray(arr) {
 document.addEventListener("DOMContentLoaded", () => {
   if (window.updateCartBadge) window.updateCartBadge();
 });
+
+// --- VALIDACIÓN DEL BOTÓN "FINALIZAR COMPRA" ---
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Busca el botón por su texto o clase
+  const botonFinalizar = [...document.querySelectorAll("button")]
+    .find(btn => btn.textContent.trim().toLowerCase() === "finalizar compra");
+
+  if (!botonFinalizar) return;
+
+ botonFinalizar.addEventListener("click", () => {
+  let mensajesError = [];
+
+  // === 1. Validar dirección ===
+  const camposDireccion = [
+    "departamento-envio",
+    "localidad-envio",
+    "calle-envio",
+    "numero-envio"
+  ];
+
+  const direccionIncompleta = camposDireccion.some(id => {
+    const campo = document.getElementById(id);
+    return !campo || campo.value.trim() === "";
+  });
+
+  if (direccionIncompleta) {
+    mensajesError.push("Complete todos los campos de dirección (departamento, localidad, calle y número)");
+  }
+
+  // === 2. Validar forma de pago ===
+  const pagoSeleccionado = document.querySelector('input[name="metodoPago"]:checked');
+  if (!pagoSeleccionado) {
+    mensajesError.push("Seleccione una forma de pago");
+  } else if (pagoSeleccionado.value === "tarjeta") {
+    const numTarjeta = document.getElementById("numTarjeta");
+    const nombreTitular = document.getElementById("nombreTitular");
+    const vencimiento = document.getElementById("vencimiento");
+    const codigoSeg = document.getElementById("cvv");
+
+    if (
+      !numTarjeta?.value ||
+      !nombreTitular?.value ||
+      !vencimiento?.value ||
+      !codigoSeg?.value
+    ) {
+      mensajesError.push("Complete todos los campos de la tarjeta");
+    }
+  }
+
+  // === 3. Validar carrito y envío ===
+  const carrito = JSON.parse(localStorage.getItem("productoAlCarrito")) || [];
+  if (carrito.length === 0) {
+    mensajesError.push("El carrito está vacío");
+  }
+
+  const envioSeleccionado = document.querySelector('input[name="shipping"]:checked');
+  if (!envioSeleccionado) {
+    mensajesError.push("Seleccione una forma de envío");
+  }
+
+  // === 4. Mostrar mensaje según corresponda ===
+  if (mensajesError.length > 0) {
+    alert("⚠️ No se puede finalizar la compra:\n\n- " + mensajesError.join("\n- "));
+    return;
+  }
+
+  // === 5. Si todo está correcto ===
+  alert("✅ ¡Compra exitosa!");
+  localStorage.removeItem("productoAlCarrito");
+  location.reload();
+});
+});
