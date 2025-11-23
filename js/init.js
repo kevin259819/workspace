@@ -1,4 +1,3 @@
-
 //se ejecuta apenas se carga el script
 (function () {
   // Verificamos si el usuario ya inició sesión
@@ -15,13 +14,19 @@
   }
 })();
 
-const CATEGORIES_URL = "https://japceibal.github.io/emercado-api/cats/cat.json";
-const PUBLISH_PRODUCT_URL = "https://japceibal.github.io/emercado-api/sell/publish.json";
-const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/";
-const PRODUCT_INFO_URL = "https://japceibal.github.io/emercado-api/products/";
-const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/products_comments/";
-const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
-const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
+// ==============================
+// NUEVAS URLs (backend local)
+// ==============================
+const BASE_URL = "http://localhost:3000/json/";
+
+const CATEGORIES_URL = BASE_URL + "cats/cat.json";
+const PUBLISH_PRODUCT_URL = BASE_URL + "sell/publish.json";
+const PRODUCTS_URL = BASE_URL + "cats_products/";
+const PRODUCT_INFO_URL = BASE_URL + "products/";
+const PRODUCT_INFO_COMMENTS_URL = BASE_URL + "products_comments/";
+const CART_INFO_URL = BASE_URL + "user_cart/";
+const CART_BUY_URL = BASE_URL + "cart/buy.json";
+
 const EXT_TYPE = ".json";
 
 let showSpinner = function(){
@@ -39,15 +44,15 @@ let getJSONData = function(url){
     .then(response => {
       if (response.ok) {
         return response.json();
-      }else{
+      } else {
         throw Error(response.statusText);
       }
     })
     .then(function(response) {
-          result.status = 'ok';
-          result.data = response;
-          hideSpinner();
-          return result;
+        result.status = 'ok';
+        result.data = response;
+        hideSpinner();
+        return result;
     })
     .catch(function(error) {
         result.status = 'error';
@@ -56,3 +61,23 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+// ==============================
+//     CERRAR SESIÓN 
+// ==============================
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+      // Eliminamos datos guardados
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("username");
+      localStorage.removeItem("userProfile");
+      localStorage.removeItem("productoAlCarrito");
+
+      // Redirigimos al login
+      location.href = "login.html";
+    });
+  }
+});

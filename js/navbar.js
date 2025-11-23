@@ -72,3 +72,18 @@ document.addEventListener("DOMContentLoaded", ensureCartLinkAndBadge);
 window.addEventListener("storage", (e) => {
   if (e.key === "productoAlCarrito") updateCartBadge();
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("username");
+      localStorage.removeItem("userProfile");
+      localStorage.removeItem("productoAlCarrito");
+
+      location.href = "login.html";
+    });
+  }
+});
