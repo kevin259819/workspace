@@ -2,7 +2,11 @@
 (function () {
   // Verificamos si el usuario ya inició sesión
   const logged =
-    localStorage.getItem("isLoggedIn") === "true";
+  //==============================
+//ENTREGA 8 PAUTA 3 
+//==============================
+
+    localStorage.getItem("authToken") != null;
 
   // Detectamos si la página actual es "login.html"
   // Así evitamos entrar en un bucle (redirigir estando en el login)
