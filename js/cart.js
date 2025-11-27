@@ -104,6 +104,7 @@ addEventListener("DOMContentLoaded", () => {
             let nuevaCantidad = parseInt(input.value) + 1;
             input.value = nuevaCantidad;
             actualizarProducto(id, nuevaCantidad);
+
         });
     });
 
@@ -212,6 +213,142 @@ addEventListener("DOMContentLoaded", () => {
             }
         }, true);
     }
+
+    // ============================
+    //  Enviar carrito al backend
+    // ============================
+
+    const btnFinalizarCompra = document.getElementById("btnFinalizarCompra");
+
+    if (btnFinalizarCompra) {
+    btnFinalizarCompra.addEventListener("click", async () => {
+        let mensajesError = [];
+
+        // === 1. Validar dirección ===
+        const camposDireccion = [
+        "departamento-envio",
+        "localidad-envio",
+        "calle-envio",
+        "numero-envio"
+        ];
+
+        const direccionIncompleta = camposDireccion.some(id => {
+        const campo = document.getElementById(id);
+        return !campo || campo.value.trim() === "";
+        });
+
+        if (direccionIncompleta) {
+        mensajesError.push(
+            "Complete todos los campos de dirección (departamento, localidad, calle y número)"
+        );
+        }
+
+        // === 2. Validar forma de pago ===
+        const pagoSeleccionado = document.querySelector(
+        'input[name="metodoPago"]:checked'
+        );
+
+        if (!pagoSeleccionado) {
+        mensajesError.push("Seleccione una forma de pago");
+        } else if (pagoSeleccionado.value === "tarjeta") {
+        const numTarjeta = document.getElementById("numTarjeta");
+        const nombreTitular = document.getElementById("nombreTitular");
+        const vencimiento = document.getElementById("vencimiento");
+        const codigoSeg = document.getElementById("cvv");
+
+        if (
+            !numTarjeta?.value ||
+            !nombreTitular?.value ||
+            !vencimiento?.value ||
+            !codigoSeg?.value
+        ) {
+            mensajesError.push("Complete todos los campos de la tarjeta");
+        }
+        }
+
+        // === 3. Validar carrito y envío ===
+        let carritoDeCompras = JSON.parse(localStorage.getItem("productoAlCarrito")) || [];
+
+        if (carritoDeCompras.length === 0) {
+        mensajesError.push("El carrito está vacío");
+        }
+
+        const envioSeleccionado = document.querySelector(
+        'input[name="shipping"]:checked'
+        );
+        if (!envioSeleccionado) {
+        mensajesError.push("Seleccione una forma de envío");
+        }
+
+        // === 4. Si hay errores, mostramos y NO hacemos fetch ===
+        if (mensajesError.length > 0) {
+        alert(
+            "⚠️ No se puede finalizar la compra:\n\n- " +
+            mensajesError.join("\n- ")
+        );
+        return; // 👈 cortamos acá
+        }
+
+        // === 5. Si TODO está bien, recién acá armamos el body y mandamos al backend ===
+
+        const items = carritoDeCompras.map(prod => ({
+        id: prod.id,
+        name: prod.nombre,
+        currency: prod.moneda,
+        unitCost: prod.costo,
+        quantity: prod.cantidad,
+        image: prod.imagen
+        }));
+
+        const subtotal = items.reduce(
+        (acc, it) => acc + it.unitCost * it.quantity,
+        0
+        );
+
+        const iva = subtotal * 0.22;   // ejemplo
+        const envio = 0;               // podés ajustarlo
+        const total = subtotal + iva + envio;
+        const articles = items.reduce((acc, it) => acc + it.quantity, 0);
+
+        const body = {
+        usuarioId: null,
+        subtotal,
+        iva,
+        envio,
+        total,
+        articles,
+        items
+        };
+
+        try {
+        const resp = await fetch("http://localhost:3000/cart", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!resp.ok) {
+            throw new Error("Error en la respuesta del servidor");
+        }
+
+        const data = await resp.json();
+        console.log("Carrito guardado:", data);
+
+        alert("✅ ¡Compra registrada en la base de datos!");
+
+        // Opcional: limpiar carrito y recargar
+        // localStorage.removeItem("productoAlCarrito");
+        // location.reload();
+        } catch (error) {
+        console.error(error);
+        alert("❌ No se pudo registrar la compra. Intenta de nuevo.");
+        }
+    });
+    }
+
+
 }); // Cierre del DOMContentLoaded
 
 // === Utils carrito (cart) ===
@@ -234,77 +371,4 @@ function saveCartArray(arr) {
 // Por si querés refrescar el badge al entrar a cart.html
 document.addEventListener("DOMContentLoaded", () => {
   if (window.updateCartBadge) window.updateCartBadge();
-});
-
-// --- VALIDACIÓN DEL BOTÓN "FINALIZAR COMPRA" ---
-
-document.addEventListener("DOMContentLoaded", () => {
-  // Busca el botón por su texto o clase
-  const botonFinalizar = [...document.querySelectorAll("button")]
-    .find(btn => btn.textContent.trim().toLowerCase() === "finalizar compra");
-
-  if (!botonFinalizar) return;
-
- botonFinalizar.addEventListener("click", () => {
-  let mensajesError = [];
-
-  // === 1. Validar dirección ===
-  const camposDireccion = [
-    "departamento-envio",
-    "localidad-envio",
-    "calle-envio",
-    "numero-envio"
-  ];
-
-  const direccionIncompleta = camposDireccion.some(id => {
-    const campo = document.getElementById(id);
-    return !campo || campo.value.trim() === "";
-  });
-
-  if (direccionIncompleta) {
-    mensajesError.push("Complete todos los campos de dirección (departamento, localidad, calle y número)");
-  }
-
-  // === 2. Validar forma de pago ===
-  const pagoSeleccionado = document.querySelector('input[name="metodoPago"]:checked');
-  if (!pagoSeleccionado) {
-    mensajesError.push("Seleccione una forma de pago");
-  } else if (pagoSeleccionado.value === "tarjeta") {
-    const numTarjeta = document.getElementById("numTarjeta");
-    const nombreTitular = document.getElementById("nombreTitular");
-    const vencimiento = document.getElementById("vencimiento");
-    const codigoSeg = document.getElementById("cvv");
-
-    if (
-      !numTarjeta?.value ||
-      !nombreTitular?.value ||
-      !vencimiento?.value ||
-      !codigoSeg?.value
-    ) {
-      mensajesError.push("Complete todos los campos de la tarjeta");
-    }
-  }
-
-  // === 3. Validar carrito y envío ===
-  const carrito = JSON.parse(localStorage.getItem("productoAlCarrito")) || [];
-  if (carrito.length === 0) {
-    mensajesError.push("El carrito está vacío");
-  }
-
-  const envioSeleccionado = document.querySelector('input[name="shipping"]:checked');
-  if (!envioSeleccionado) {
-    mensajesError.push("Seleccione una forma de envío");
-  }
-
-  // === 4. Mostrar mensaje según corresponda ===
-  if (mensajesError.length > 0) {
-    alert("⚠️ No se puede finalizar la compra:\n\n- " + mensajesError.join("\n- "));
-    return;
-  }
-
-  // === 5. Si todo está correcto ===
-  alert("✅ ¡Compra exitosa!");
-  localStorage.removeItem("productoAlCarrito");
-  location.reload();
-});
 });

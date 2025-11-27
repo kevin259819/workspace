@@ -1,1 +1,0 @@
-let carritoDeCompras = JSON.parse(localStorage.getItem("productoAlCarrito")) || [];
